@@ -1,0 +1,14 @@
+
+<div
+class="container"
+(click)="selectWord()"
+[ngClass]="{
+selected_word: word.select
+}"
+>
+<div class="number_div">{{word.number}}.</div>
+<div class="content_div">
+    <pre>{{text}}</pre>
+</div>
+<div class="date_div">{{word.date}}</div>
+</div>

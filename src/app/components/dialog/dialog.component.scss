@@ -1,0 +1,49 @@
+.background-div {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  animation: anime 1s;
+  transition: background-color 1s;
+}
+
+.dialog-div {
+  position: fixed;
+  top: 50%;
+  margin-top: -100px;
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  padding: 20px;
+  background-color: aliceblue;
+  border-radius: 15px;
+  z-index: 1001;
+  animation: anime 1s;
+
+  mat-divider {
+    margin-bottom: 1rem;
+    border-top-color: rgba(128, 128, 128, 0.4);
+  }
+
+  .btn_div {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  button {
+    margin-right: 1rem;
+  }
+}
+
+@keyframes anime {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+

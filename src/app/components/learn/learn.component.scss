@@ -1,0 +1,119 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  //grid-template-rows: 864px;
+  background-color: rgba(0, 0, 0, 0.55);
+  position: fixed;
+  top: 103px;
+  bottom: 0;
+  overflow: auto;
+  border-bottom: 1px solid white;
+
+  div {
+    padding: 20px;
+  }
+
+  .left_div {
+    overflow: auto;
+    min-width: 200px;
+    color: white;
+  }
+
+  .center_div {
+    //background-color: #c9be59;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    color: white;
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin: 1rem
+    }
+
+    .word_p {
+      text-align: center;
+      font-size: 5rem;
+      line-height: 5rem;
+      font-weight: 500;
+      margin: 3rem;
+      color: red;
+    }
+
+    .translate_p {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn_ctrl_div {
+      padding: 0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+
+      button {
+        margin-bottom: 1rem;
+      }
+    }
+
+    mat-divider {
+      margin: 1rem 0;
+      border-top-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .form-field {
+      width: -webkit-fill-available;
+      background-color: rgb(28 28 28 / 65%);
+      border-radius: 15px;
+      padding: 5px 15px;
+
+      mat-label {
+        font-size: 1.2rem;
+      }
+
+      input {
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+      }
+    }
+
+    .answer_p {
+      text-align: center;
+      font-size: 5rem;
+      font-weight: bold;
+      line-height: normal;
+      margin-top: 3rem;
+    }
+  }
+
+  .right_div {
+    color: white;
+
+    .sel_lang {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 0.8rem;
+      font-size: 1rem;
+
+      mat-radio-button,mat-checkbox {
+        font-family: cursive;
+      }
+
+    }
+    mat-divider {
+      margin: 1rem 0;
+      border-top-color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  .sound_btn {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+  }
+
+}

@@ -1,0 +1,40 @@
+header {
+  height: 100px;
+  //background-color: aqua;
+
+  border-bottom: 1px solid white;
+  display: flex;
+  justify-content: left;
+
+  .dictionary_label_div {
+
+    min-width: 450px;
+    height: 100%;
+    text-align: center;
+
+    h1 {
+      color: white;
+      position: relative;
+      top: 32px;
+      font-size: 2rem;
+    }
+  }
+
+  .tab_div {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  mat-divider {
+    align-self: stretch;
+    border-right-color: white;
+  }
+}
+
+.active {
+  color: red;
+  background-color: yellow;
+}

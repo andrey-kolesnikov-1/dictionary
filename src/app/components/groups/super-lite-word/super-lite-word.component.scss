@@ -1,0 +1,41 @@
+.container {
+    font-size: 1.15rem;
+    line-height: normal;
+    display: grid;
+    grid-template-columns: min-content 6fr 1fr;
+    transition: all 0.15s;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0);
+    cursor: pointer;
+    margin-bottom: 1px;
+    margin-right: 5px;
+  
+    &:hover {
+      background-color: rgb(0, 208, 255, 30%);
+      border: 2px solid black;
+      transform: translate(2px, -2px);
+    }
+  
+    &.selected_word {
+      background-color: rgb(244, 67, 54, 50%);
+      border: 2px solid #168b01;
+    }
+  }
+  
+  
+  .number_div {
+    font-family: monospace;
+    color: lawngreen;
+    padding-right: 5px;
+    padding-left: 10px;
+  }
+  
+  .content_div {
+    pre {
+      color: white;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  
+  

@@ -1,0 +1,16 @@
+<div class="background-div"
+     [ngStyle]="{backgroundColor: danger && active ? 'rgba(255,2,2,0.3)': 'rgba(109,109,109,0.4)'}"
+></div>
+
+<div class="dialog-div">
+  <h1 style="text-align: center">{{dialog}}</h1>
+  <mat-divider></mat-divider>
+  <div class="btn_div">
+    <button class="btn_agree" mat-raised-button color="primary"
+            (click)="agree()"
+            (mouseover)="active = true"
+            (mouseout)="active = false"
+    >{{textButtonAgree}}</button>
+    <button mat-raised-button color="primary" (click)="closeDialog()">{{textButtonClose}}</button>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  background-color: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  top: 103px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  border-bottom: 1px solid white;
+
+  div {
+    padding: 20px;
+  }
+
+  .center_div {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    position: relative;
+
+    .form-field {
+      width: 350px;
+      font-size: 1rem;
+      color: white;
+    }
+  }
+
+  .container_words_div {
+    padding: 0;
+    overflow: auto;
+    /* max-height: 760px; */
+    position: absolute;
+    bottom: 10px;
+    top: 80px;
+    right: 10px;
+    left: 10px;
+  }
+
+  .left_div {
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    overflow: hidden;
+    position: relative;
+    div {
+      position: absolute;
+      left: 0;
+      right: 10px;
+      bottom: 15px;
+      top: 15px;
+    }
+  }
+
+  .right_div {
+    color: white;
+
+    .form-field {
+      font-size: 1rem;
+      color: white;
+      width: -webkit-fill-available;
+
+      textarea {
+        height: 300px;
+        resize: none;
+      }
+    }
+    .btn_new_words_div {
+      padding: 0;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      button {
+        margin-right: 1rem;
+      }
+    }
+    mat-divider {
+      margin: 1rem 0;
+      border-top-color: rgba(255, 255, 255, 0.5);
+    }
+
+  }
+}
+
