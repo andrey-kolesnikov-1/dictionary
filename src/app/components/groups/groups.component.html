@@ -1,20 +1,19 @@
 <div class="container">
   <div class="left_div">
     <div *ngIf="toggleInfoWords">
-      <h2>Список доступныз слов</h2>
+      <h2>Список доступных слов</h2>
       <mat-form-field class="form-field" color="accent">
         <mat-label>Поиск</mat-label>
         <input matInput type="text" autocomplete="off" [(ngModel)]="findWord" (input)="checkFind()">
       </mat-form-field>
 
       <div class="words_div">
-        <app-super-lite-word></app-super-lite-word>
-        <app-super-lite-word></app-super-lite-word>
-        <app-super-lite-word></app-super-lite-word>
-        <app-super-lite-word></app-super-lite-word>
-        <app-super-lite-word></app-super-lite-word>
-        <app-super-lite-word></app-super-lite-word>
-        <app-super-lite-word></app-super-lite-word>
+        <app-super-lite-word
+          *ngFor="let word of wordsArray"
+          [word]="word"
+          (onClick)="selectWordForGroup()"
+        ></app-super-lite-word>
+
       </div>
     </div>
     <div *ngIf="!toggleInfoWords">
@@ -34,7 +33,22 @@
   <div class="right_div">
 
     <p>Действия над группами слов</p>
-
     <button mat-raised-button color="warn" (click)="addNewGroup()">Добавить новую группу</button>
+
+    <div *ngIf="formNewGroup">
+      <mat-form-field class="form-field" color="accent">
+        <mat-label>Заголовок новой группы</mat-label>
+        <input matInput type="text" autocomplete="off" [(ngModel)]="nameNewGroup">
+      </mat-form-field>
+      <h3>Содержание группы</h3>
+      <small>Отметьте слова в левой колонке</small>
+      <div class="content_group">
+        <p *ngFor="let item of tempSelectedWords" [innerText]="item"></p>
+      </div>
+      <button mat-raised-button color="warn" (click)="saveNewGroup()">Сохранить</button>
+      <button mat-raised-button color="warn" (click)="cancelCreateNewGroup()">Отмена</button>
+    </div>
+
   </div>
+
 </div>

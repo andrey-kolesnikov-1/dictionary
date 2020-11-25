@@ -3,12 +3,12 @@
 class="container"
 (click)="selectWord()"
 [ngClass]="{
-selected_word: select
+selected_word: word.selected
 }"
 >
-<div class="number_div">{{10}}.</div>
+<div class="number_div">{{word.number}}.</div>
 <div class="content_div">
-    <pre>{{"mather = мать"}}</pre>
+    <p>{{word.text}}</p>
 </div>
 </div>
 

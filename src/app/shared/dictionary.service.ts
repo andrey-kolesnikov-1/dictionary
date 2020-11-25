@@ -26,6 +26,10 @@ export class DictionaryService {
     }
   }
 
+  getCopyDictionary(): Map<string, Word> {
+  return new Map<string, Word>(JSON.parse(JSON.stringify([...this.dictionary])));
+  }
+
   setCommandForWord(command: number) {
     this.streamShowWord$.next(command);
   }
@@ -67,10 +71,10 @@ export class DictionaryService {
   private getDate(): string {
     const date = new Date();
     return `${editDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
-    
+
     function editDate(): string {
       let day = date.getDate() + '';
-      return day.length === 1 ? '0' + day : day
+      return day.length === 1 ? '0' + day : day;
     }
   }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {WordsForGroup} from '../../../shared/interfaces';
 
 @Component({
   selector: 'app-super-lite-word',
@@ -7,15 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperLiteWordComponent implements OnInit {
 
-  select: boolean = false;
+  @Input() word: WordsForGroup;
+  @Output() onClick: EventEmitter<void> = new  EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-
   selectWord() {
-    this.select = !this.select;
+    this.word.selected = !this.word.selected ;
+    this.onClick.emit();
   }
 }

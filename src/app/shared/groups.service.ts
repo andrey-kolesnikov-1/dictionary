@@ -6,8 +6,8 @@ import { Subject } from 'rxjs';
 })
 export class GroupsService {
 
-  groups: Map<string, string[]>;
-  newGroup$: Subject<Map<string, string[]>> = new Subject<Map<string, string[]>>();
+  groups: Map<string, any[]>;
+  newGroup$: Subject<Map<string, any[]>> = new Subject<Map<string, any[]>>();
 
   constructor() {
     if (localStorage.getItem('groups') !== null) {
@@ -17,8 +17,8 @@ export class GroupsService {
     }
   }
 
-  getGroups() {
-    this.newGroup$.next(this.groups);
+  getGroups() { // возвращаем копию групп
+    this.newGroup$.next(new Map<string, any[]>(JSON.parse(JSON.stringify([...this.groups]))));
   }
 
   saveGroups() {
@@ -26,10 +26,10 @@ export class GroupsService {
     localStorage.setItem('groups', strMap); // сохраняем в памяти
   }
 
-  addNewGroup(name: string, words: string[]) {
-    this.groups.set(name, words);
+  addNewGroup(name: string, data: any[]) {
+    this.groups.set(name, data);
     this.saveGroups();
-    this.newGroup$.next(this.groups);
+    this.getGroups();
   }
 
 
