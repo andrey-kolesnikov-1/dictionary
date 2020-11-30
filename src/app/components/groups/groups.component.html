@@ -38,15 +38,24 @@
     <div *ngIf="formNewGroup">
       <mat-form-field class="form-field" color="accent">
         <mat-label>Заголовок новой группы</mat-label>
-        <input matInput type="text" autocomplete="off" [(ngModel)]="nameNewGroup">
+        <input #inputElement matInput type="text" autocomplete="off" placeholder="Максимум 30 символов" [maxLength]="30" [(ngModel)]="nameNewGroup">
       </mat-form-field>
       <h3>Содержание группы</h3>
       <small>Отметьте слова в левой колонке</small>
       <div class="content_group">
         <p *ngFor="let item of tempSelectedWords" [innerText]="item"></p>
       </div>
-      <button mat-raised-button color="warn" (click)="saveNewGroup()">Сохранить</button>
+      <button mat-raised-button color="warn" (click)="saveNewGroup()" [disabled]="nameNewGroup.trim().length === 0">Сохранить</button>
       <button mat-raised-button color="warn" (click)="cancelCreateNewGroup()">Отмена</button>
+    </div>
+
+    <div *ngIf="infoSelectedGroup">
+      <mat-divider></mat-divider>
+      <h3>Содеожание группы <strong>{{nameSelectedGroup}}</strong></h3>
+      <div class="content_group">
+        <p *ngFor="let item of tempSelectedWords" [innerText]="item"></p>
+      </div>
+      <button mat-raised-button color="warn" (click)="saveChangeGroup()">Сохранить изменения</button>
     </div>
 
   </div>

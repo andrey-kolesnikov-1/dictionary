@@ -32,5 +32,21 @@ export class GroupsService {
     this.getGroups();
   }
 
+  saveEditedGroup(group: string, words: any[]) {
+    if (this.groups.has(group)) {
+      let info = this.groups.get(group)[0];
+      info.numberWords = words.length;
+      words.unshift(info);
+      this.groups.set(group, words);
+      this.saveGroups();
+      this.getGroups();
+    }
+  }
+
+  deleteSelectedGroup(group: string) {
+    this.groups.delete(group);
+    this.saveGroups();
+    this.getGroups();
+  }
 
 }

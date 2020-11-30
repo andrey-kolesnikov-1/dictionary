@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GroupsService} from '../../shared/groups.service';
 import {Group, Word, WordsForGroup} from '../../shared/interfaces';
 import {Subscription} from 'rxjs';
@@ -18,10 +18,13 @@ export class GroupsComponent implements OnInit, OnDestroy {
   copyDictionary: Map<string, Word>;
   toggleInfoWords: boolean = false;
   formNewGroup: boolean = false;
+  infoSelectedGroup: boolean = false;
   stream: Subscription;
   nameNewGroup: string = '';
   tempSelectedWords: string[] = [];
   nameSelectedGroup: string = '';
+
+  @ViewChild('inputElement') inputElement: ElementRef;
 
 
   constructor(private dataGroup: GroupsService, private data: DictionaryService) {
@@ -45,19 +48,35 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
 
   checkFind() {
-
+      if (this.findWord.trim()) {
+        let text = this.findWord.trim()
+        let arr = []
+        for (let value of this.wordsArray) {
+          if (value.text.includes(text)) {
+            arr.push(value)
+          }
+        }
+        this.wordsArray = arr;
+      } else {
+        this.showGroupWords();
+      }
   }
 
   selectGroup(group: string) { // выделяем группу по клику на ней или кнопке "Редактировать"
     this.nameSelectedGroup = group;
     this.toggleInfoWords = false;
+    this.infoSelectedGroup = false;
+
     for (let item of this.groupsArray) {
       item.selected = item.name === group;
       if (item.selected) {
+        this.formNewGroup = false;
+        this.infoSelectedGroup = true;
         this.toggleInfoWords = true;
       }
     }
     this.showGroupWords();
+    this.selectWordForGroup();
   }
 
   showGroupWords() { // вывод всех слов словаря
@@ -69,19 +88,26 @@ export class GroupsComponent implements OnInit, OnDestroy {
       this.wordsArray.push({
         number: item.number,
         text: item.word + ' = ' + item.translation,
-        selected: this.copyGroupMap.get(this.nameSelectedGroup).includes(item.word)
+        selected: this.nameSelectedGroup ? this.copyGroupMap.get(this.nameSelectedGroup).includes(item.word) : false
       });
     }
   }
 
   addNewGroup() { //кнопка "Добавить группу"
+    this.nameNewGroup = '';
+    this.selectGroup('');
+    this.infoSelectedGroup = false;
     this.formNewGroup = this.toggleInfoWords = true; // открываем форму новой группы и доступные слова
     this.showGroupWords(); // выводим слова
+
+    setTimeout(() => {this.inputElement.nativeElement.focus();}, 100)
   }
 
   saveNewGroup() { // сохранение новой группы
+    let name = this.nameNewGroup.trim();
+    if (!name) return;
     const group = { // создаем объект описания группы
-      name: this.nameNewGroup,
+      name: name,
       numberWords: this.tempSelectedWords.length,
       dateCreate: this.getDate(),
       lastUse: this.getDate(),
@@ -98,11 +124,9 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   getDate(): string { // получение и форматирование даты
     const date = new Date();
-
     function format(str: string): string {
       return str.length === 1 ? '0' + str : str;
     }
-
     return `${format(date.getDate() + '')}.${format(date.getMonth() + 1 + '')}.${format(date.getFullYear() + '')}`;
   }
 
@@ -112,12 +136,17 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   selectWordForGroup() { // обработка клика по слову словаря
-    if (this.formNewGroup) {
       this.tempSelectedWords = this.wordsArray.filter(value => value.selected).map(value => value.text);
-    }
   }
 
   ngOnDestroy(): void { // отписываемся при удалении компонента
     this.stream.unsubscribe();
   }
+
+  saveChangeGroup() { // сохранение изменений в выбранной группе
+    const arr: any[] = this.tempSelectedWords.map(value => value.split('=')[0].trim());
+    this.dataGroup.saveEditedGroup(this.nameSelectedGroup, arr);
+    this.infoSelectedGroup = this.toggleInfoWords = false;
+  }
+
 }

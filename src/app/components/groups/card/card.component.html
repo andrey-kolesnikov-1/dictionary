@@ -12,7 +12,16 @@
 
     <div class="btn">
         <button mat-button color="warn">Изучить</button>
-        <button mat-button color="warn">Удалить</button>
-        <button mat-button color="warn">Редактировать</button>
+        <button mat-button color="warn" (click)="isDelete = true">Удалить</button>
+        <button mat-button color="warn" (click)="editGroup()">Редактировать</button>
     </div>
 </div>
+
+<app-dialog *ngIf="isDelete"
+            [dialog]="'Вы действительно хотите удалить группу: ' + group.name + '?'"
+            [danger]="true"
+            textButtonAgree="Удалить"
+            textButtonClose="Отмена"
+            (onAgree)="deleteGroup()"
+            (onClose)="isDelete = false"
+></app-dialog>
