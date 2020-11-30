@@ -93,12 +93,21 @@
       }
       .content_group {
         margin-bottom: 1rem;
-        max-height: 540px;
+        max-height: 525px;
         overflow: auto;
         p {
           padding: 0;
           margin: 0;
         }
+      }
+      button {
+        margin-bottom: 0;
+      }
+    }
+    .tc {
+      margin-bottom: 1rem;
+      h3 {
+        margin-bottom: 0;
       }
     }
   }

@@ -15,6 +15,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   groupsArray: Group[] = [];
   copyGroupMap: Map<string, any[]>;
   wordsArray: WordsForGroup[] = [];
+  showWords: WordsForGroup[] = [];
   copyDictionary: Map<string, Word>;
   toggleInfoWords: boolean = false;
   formNewGroup: boolean = false;
@@ -39,6 +40,9 @@ export class GroupsComponent implements OnInit, OnDestroy {
       for (let item of groups.values()) {
         this.groupsArray.push(item[0]);
       }
+      if (this.groupsArray.length === 0) {
+        this.toggleInfoWords = this.infoSelectedGroup = false;
+      }
     });
     this.dataGroup.getGroups();
 
@@ -56,23 +60,21 @@ export class GroupsComponent implements OnInit, OnDestroy {
             arr.push(value)
           }
         }
-        this.wordsArray = arr;
+        this.showWords = arr;
       } else {
-        this.showGroupWords();
+        this.showWords = this.wordsArray.map(value => value); // копируем главный массив в массив для отображения
       }
   }
 
   selectGroup(group: string) { // выделяем группу по клику на ней или кнопке "Редактировать"
     this.nameSelectedGroup = group;
-    this.toggleInfoWords = false;
-    this.infoSelectedGroup = false;
+    this.toggleInfoWords = this.infoSelectedGroup = false;
 
     for (let item of this.groupsArray) {
       item.selected = item.name === group;
       if (item.selected) {
         this.formNewGroup = false;
-        this.infoSelectedGroup = true;
-        this.toggleInfoWords = true;
+        this.infoSelectedGroup = this.toggleInfoWords = true;
       }
     }
     this.showGroupWords();
@@ -91,6 +93,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
         selected: this.nameSelectedGroup ? this.copyGroupMap.get(this.nameSelectedGroup).includes(item.word) : false
       });
     }
+    this.showWords = this.wordsArray.map(value => value); // копируем главный массив в массив для отображения
   }
 
   addNewGroup() { //кнопка "Добавить группу"

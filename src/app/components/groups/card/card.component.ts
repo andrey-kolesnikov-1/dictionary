@@ -36,4 +36,8 @@ export class CardComponent implements OnInit {
   deleteGroup() {
     this.dataGroup.deleteSelectedGroup(this.group.name);
   }
+
+  toLearn() {
+    
+  }
 }

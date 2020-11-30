@@ -9,7 +9,7 @@
 
       <div class="words_div">
         <app-super-lite-word
-          *ngFor="let word of wordsArray"
+          *ngFor="let word of showWords"
           [word]="word"
           (onClick)="selectWordForGroup()"
         ></app-super-lite-word>
@@ -40,8 +40,10 @@
         <mat-label>Заголовок новой группы</mat-label>
         <input #inputElement matInput type="text" autocomplete="off" placeholder="Максимум 30 символов" [maxLength]="30" [(ngModel)]="nameNewGroup">
       </mat-form-field>
-      <h3>Содержание группы</h3>
+      <div class="tc">
+      <h3>Содержание группы ({{tempSelectedWords.length}})</h3>
       <small>Отметьте слова в левой колонке</small>
+      </div>
       <div class="content_group">
         <p *ngFor="let item of tempSelectedWords" [innerText]="item"></p>
       </div>
@@ -51,7 +53,7 @@
 
     <div *ngIf="infoSelectedGroup">
       <mat-divider></mat-divider>
-      <h3>Содеожание группы <strong>{{nameSelectedGroup}}</strong></h3>
+      <h3>Содеожание группы <strong>{{nameSelectedGroup}}</strong> ({{tempSelectedWords.length}})</h3>
       <div class="content_group">
         <p *ngFor="let item of tempSelectedWords" [innerText]="item"></p>
       </div>
