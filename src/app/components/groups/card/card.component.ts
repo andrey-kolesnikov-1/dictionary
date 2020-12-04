@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Group} from '../../../shared/interfaces';
 import {GroupsService} from '../../../shared/groups.service';
+import {DictionaryService} from '../../../shared/dictionary.service';
 
 @Component({
   selector: 'app-card',
@@ -13,12 +14,12 @@ export class CardComponent implements OnInit {
   @Output() onSelected: EventEmitter<string> = new EventEmitter<string>();
   isDelete: boolean = false;
 
-  constructor( private dataGroup: GroupsService) { }
+  constructor( private dataGroup: GroupsService, private data: DictionaryService) { }
 
   ngOnInit(): void {
   }
 
-  clickCard(event) {
+  clickCard(event) { // нажатие по карточке группы
     let target = event.target.localName;
     if(target == 'div' || target =='p' || target =='strong' || target =='h2') {
       if (!this.group.selected) {
@@ -29,15 +30,23 @@ export class CardComponent implements OnInit {
     }
   }
 
-  editGroup() {
+  editGroup() { // кнопка "Редактировать"
     this.onSelected.emit(this.group.name);
   }
 
-  deleteGroup() {
+  deleteGroup() { // кнопка "Удалить"
     this.dataGroup.deleteSelectedGroup(this.group.name);
   }
 
-  toLearn() {
-    
+  toLearn() { // кнопка "Изучить"
+    // модифицируем статистику группы в хранилище
+    const status = this.dataGroup.groups.get(this.group.name);
+    status[0].numberUse++;
+    status[0].lastUse = this.data.getDate();
+    this.dataGroup.save();
+    this.onSelected.emit('');
+    const arr = [...status];
+    arr.shift();
+    this.data.setLearnWords(arr, 'groups');
   }
 }

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DictionaryService} from '../../shared/dictionary.service';
 import {Word} from '../../shared/interfaces';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-show-dictionary',
@@ -16,17 +17,19 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
   isDeleteWord: boolean = false;
   isEmptyField: boolean = true;
   findWord: string = '';
+  sub: Subscription;
 
   constructor(private data: DictionaryService) {
   }
 
   ngOnDestroy(): void {
     this.controlSelectedWord(3);
+    this.sub.unsubscribe();
   }
 
   ngOnInit(): void {
     this.copyDictionary(this.data.dictionary.values());
-    this.data.stream$.subscribe(() => {
+    this.sub = this.data.stream$.subscribe(() => {
       this.copyDictionary(this.data.dictionary.values());
     });
   }

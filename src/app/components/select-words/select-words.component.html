@@ -164,9 +164,10 @@
 
     <mat-divider></mat-divider>
 
+    <button mat-raised-button color="warn" [disabled]="numberSelectedWords == 0" (click)="toLearn()">Изучить</button>
     <button mat-raised-button color="warn" [disabled]="numberSelectedWords == 0" (click)="resetAll()">
       Сбросить все</button>
-    <button mat-raised-button color="warn" [disabled]="numberSelectedWords == 0" (click)="toLearn()">Изучить</button>
+
 
   </div>
 </div>

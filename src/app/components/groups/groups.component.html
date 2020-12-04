@@ -24,6 +24,9 @@
   </div>
 
   <div class="center_div">
+    <div style="color: white; text-align: center" *ngIf="groupsArray.length === 0">
+      <h1>Список групп пуст.</h1>
+    </div>
     <div class="container_words_div">
       <app-card *ngFor="let group of groupsArray" [group]="group"
                 (onSelected)="selectGroup($event)"></app-card>

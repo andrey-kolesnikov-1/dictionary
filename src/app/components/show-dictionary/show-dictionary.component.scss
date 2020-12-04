@@ -40,9 +40,10 @@
   .left_div {
     cursor: pointer;
     color: white;
-    font-size: 1rem;
+    font-size: 1em;
     overflow: hidden;
     position: relative;
+
     div {
       position: absolute;
       left: 0;
@@ -65,15 +66,20 @@
         resize: none;
       }
     }
+
     .btn_new_words_div {
       padding: 0;
-      margin-bottom: 1rem;
+      //margin-bottom: 1rem;
       display: flex;
       justify-content: flex-start;
+      flex-wrap: wrap;
+
       button {
         margin-right: 1rem;
+        margin-bottom: 1rem;
       }
     }
+
     mat-divider {
       margin: 1rem 0;
       border-top-color: rgba(255, 255, 255, 0.5);

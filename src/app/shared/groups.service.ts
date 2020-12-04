@@ -13,7 +13,7 @@ export class GroupsService {
     if (localStorage.getItem('groups') !== null) {
       this.groups = new Map(JSON.parse(localStorage.getItem('groups')));
     } else {
-      this.groups = new Map<string, []>();
+      this.groups = new Map<string, any[]>();
     }
   }
 
@@ -28,8 +28,7 @@ export class GroupsService {
 
   addNewGroup(name: string, data: any[]) {
     this.groups.set(name, data);
-    this.saveGroups();
-    this.getGroups();
+    this.save();
   }
 
   saveEditedGroup(group: string, words: any[]) {
@@ -38,13 +37,16 @@ export class GroupsService {
       info.numberWords = words.length;
       words.unshift(info);
       this.groups.set(group, words);
-      this.saveGroups();
-      this.getGroups();
+      this.save();
     }
   }
 
   deleteSelectedGroup(group: string) {
     this.groups.delete(group);
+    this.save();
+  }
+
+  save() {
     this.saveGroups();
     this.getGroups();
   }

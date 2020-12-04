@@ -1,7 +1,6 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  //grid-template-rows: 864px;
   background-color: rgba(0, 0, 0, 0.55);
   position: fixed;
   top: 103px;
@@ -15,12 +14,12 @@
 
   .left_div {
     overflow: auto;
-    min-width: 200px;
     color: white;
+    font-size: 1em;
   }
 
   .center_div {
-    //background-color: #c9be59;
+    position: relative;
     border-left: 1px solid white;
     border-right: 1px solid white;
     color: white;
@@ -28,7 +27,7 @@
     h1 {
       text-align: center;
       font-size: 3rem;
-      margin: 1rem
+      margin: 1rem;
     }
 
     .word_p {
@@ -36,8 +35,31 @@
       font-size: 5rem;
       line-height: 5rem;
       font-weight: 500;
-      margin: 3rem;
+      margin: 3rem 0;
       color: red;
+    }
+
+    .control_div {
+      padding: 0;
+      position: absolute;
+      top: 305px;
+      left: 20px;
+      right: 20px;
+
+      .infoStat {
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        p {
+          display: inline;
+          margin: 0;
+          span {
+            color: #FFEB3B;
+            font-weight: 500;
+            //font-size: large;
+          }
+        }
+      }
     }
 
     .translate_p {

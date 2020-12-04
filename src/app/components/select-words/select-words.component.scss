@@ -40,7 +40,7 @@
   .left_div {
     cursor: pointer;
     color: white;
-    font-size: 1rem;
+    font-size: 1em;
     overflow: hidden;
     position: relative;
 
@@ -69,6 +69,7 @@
 
     button {
       margin-right: 1rem;
+      margin-bottom: 1rem;
     }
   }
 }

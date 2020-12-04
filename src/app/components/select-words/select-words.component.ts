@@ -1,31 +1,49 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { DictionaryService } from 'src/app/shared/dictionary.service';
 import { Word } from 'src/app/shared/interfaces';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-select-words',
   templateUrl: './select-words.component.html',
   styleUrls: ['./select-words.component.scss']
 })
-export class SelectWordsComponent implements OnInit {
+export class SelectWordsComponent implements OnInit, OnDestroy {
 
   isScrollTextInfo: boolean = false;
   findWord: string = '';
   dictionaryArray: Word[] = [];
   selectedWordsArray: number[] = [];
   numberSelectedWords: number = 0;
-  @ViewChild('selElemEnd') selElemEnd: MatSelect;
-  @ViewChild('selElemRandom') selElemRandom: MatSelect;
+  sub: Subscription;
+  @ViewChild('selElemEnd', {static: true}) selElemEnd: MatSelect;
+  @ViewChild('selElemRandom', {static: true}) selElemRandom: MatSelect;
 
   constructor(private data: DictionaryService) { }
 
   ngOnInit(): void {
     this.copyDictionary(this.data.dictionary.values());
-    this.data.stream$.subscribe(() => {
+    this.sub = this.data.stream$.subscribe(() => {
       this.copyDictionary(this.data.dictionary.values());
     });
     this.checkSelectedWords();
+    this.setSetting();
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    this.saveSetting();
+  }
+
+  setSetting() {
+    this.selElemEnd.value = this.data.settingSelectedWords.lastWords;
+    this.selElemRandom.value = this.data.settingSelectedWords.randomWords;
+  }
+
+  saveSetting() {
+    this.data.settingSelectedWords.lastWords = this.selElemEnd.value;
+    this.data.settingSelectedWords.randomWords = this.selElemRandom.value;
   }
 
   copyDictionary(data) {
@@ -102,10 +120,17 @@ export class SelectWordsComponent implements OnInit {
     this.checkSelectedWords('reset');
     this.selElemEnd.value = 'off';
     this.selElemRandom.value = 'off';
+    this.data.saveWords();
   }
 
-  toLearn() {
-    console.log(this.selectedWordsArray)
+  toLearn() { // передаёт массив выбранных слов
+    const arr = [];
+    for (let item of this.selectedWordsArray) {
+      for (let value of this.dictionaryArray) {
+        if (value.number === item) arr.push(value.word)
+      }
+    }
+    this.data.setLearnWords(arr, 'words');
   }
 
 }

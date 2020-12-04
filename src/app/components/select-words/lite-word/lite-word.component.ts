@@ -17,7 +17,6 @@ export class LiteWordComponent implements OnInit {
     this.show();
   }
 
-
   show() {
     let str = '';
     let tab = '';
@@ -30,7 +29,6 @@ export class LiteWordComponent implements OnInit {
 
   selectWord() {
     this.word.select = !this.word.select;
-    // this.onSelected.emit(this.word.number);
   }
 
 }

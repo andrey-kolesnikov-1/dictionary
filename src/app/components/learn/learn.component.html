@@ -1,6 +1,6 @@
 <div class="container">
   <div class="left_div">
-    <div style="font-size: 1rem">
+    <div>
       <strong>Используется весь словарь.</strong>
       <br><br>
       <p><b>Англи́йский язы́к</b> (самоназвание — English, the English language) — язык англо-фризской подгруппы
@@ -20,56 +20,81 @@
 
   <div class="center_div">
     <h1 style="text-align: center">Переведите слово:</h1>
-    <p class="word_p">Lorem ipsum</p>
-    <p>10 из 1000</p>
-    <mat-divider></mat-divider>
-    <mat-form-field class="form-field" color="accent">
-      <mat-label>Введите перевод</mat-label>
-      <input matInput type="text" autocomplete="off">
-    </mat-form-field>
-    <p [ngStyle]="{
-    opacity: isTranslate ? 1 : 0
-    }" class="translate_p"> fgfdg</p>
-    <div class="btn_ctrl_div">
-      <button mat-raised-button color="warn" (click)="checkTranslation()">Проверить (Enter)</button>
-      <button mat-raised-button color="warn">Следующее слово (Ctrl)</button>
-      <button mat-raised-button color="warn">Предидущее слово</button>
-      <button mat-raised-button color="warn" (click)="isTranslate = true">Показать перевод</button>
-    </div>
+    <p class="word_p">{{wordForTranslate}}</p>
 
-    <mat-divider></mat-divider>
-    <p *ngIf="isShowAnswer" class="answer_p">It`s wrong!</p>
+    <div class="control_div">
+      <div class="infoStat">
+        <p>{{data.index}} из {{data.numberOfWords}}</p>
+        <p *ngIf="errorsTranslate !== 0">Ошибок: <span>{{errorsTranslate}}</span></p>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-form-field class="form-field" color="accent">
+        <mat-label>Введите перевод</mat-label>
+        <input #inputElement matInput type="text" autocomplete="off"
+               [(ngModel)]="translate"
+               (keydown.enter)="checkTranslation()"
+               (keydown.control)="nextWord()"
+               (keydown.delete)="translate = ''"
+        >
+      </mat-form-field>
+      <p [ngStyle]="{
+    opacity: isShowTranslate ? 1 : 0
+    }" class="translate_p">{{trueTranslate}}</p>
+      <div class="btn_ctrl_div">
+        <button mat-raised-button color="warn"
+                (click)="checkTranslation()"
+                [disabled]="translate.trim().length === 0 || sentence.word === ''">
+          Проверить (Enter)
+        </button>
+        <button mat-raised-button color="warn" (click)="nextWord()">Следующее слово (Ctrl)</button>
+        <button mat-raised-button color="warn" (click)="previousWord()" [disabled]="data.setting.random">Предидущее
+          слово
+        </button>
+        <button mat-raised-button color="warn" (click)="showTranslation()" [disabled]="trueTranslate === '0'">Показать
+          перевод
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+      <p *ngIf="isShowAnswer" class="answer_p">{{answer}}</p>
+    </div>
   </div>
 
   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
   <div class="right_div">
-    <mat-radio-group color="accent" class="sel_lang">
+    <mat-radio-group [value]="data.setting.language" color="accent" class="sel_lang" (change)="changeLanguage($event)">
       <strong>Перевод:</strong>
-      <mat-radio-button value="en" [checked]="true">Русский - Английский</mat-radio-button>
-      <mat-radio-button value="ru">Английский - Русский</mat-radio-button>
+      <mat-radio-button value="ru">Русский - Английский</mat-radio-button>
+      <mat-radio-button value="en">Английский - Русский</mat-radio-button>
     </mat-radio-group>
 
     <mat-divider></mat-divider>
 
     <section class="sel_lang">
       <strong>Порядок слов:</strong>
-      <mat-checkbox color="accent">Случайный порядок</mat-checkbox>
-      <mat-checkbox color="accent">Повтор слов</mat-checkbox>
+      <mat-checkbox color="accent" [checked]="data.setting.random" (change)="data.setting.random = $event.checked">
+        Случайный порядок
+      </mat-checkbox>
+      <mat-checkbox color="accent" [checked]="data.setting.repeat" (change)="data.setting.repeat = $event.checked">
+        Повтор слов
+      </mat-checkbox>
     </section>
 
     <mat-divider></mat-divider>
 
-    <mat-radio-group color="accent" class="sel_lang">
+    <mat-radio-group [value]="data.setting.learnWords" color="accent" class="sel_lang"
+                     (change)="changeLearnWords($event)">
       <strong>Использовать:</strong>
-      <mat-radio-button value="all" [checked]="true">Весь словарь</mat-radio-button>
+      <mat-radio-button value="all">Весь словарь</mat-radio-button>
       <mat-radio-button value="words">Выделенные слова</mat-radio-button>
       <mat-radio-button value="groups">Группу слов</mat-radio-button>
     </mat-radio-group>
 
-    <button class="sound_btn" mat-fab color="accent">
-      <mat-icon>volume_up</mat-icon>
-    </button>
   </div>
+
+  <button class="sound_btn" mat-fab [color]="colorSoundBtn" (click)="toggleSound()">
+    <mat-icon>{{iconSound}}</mat-icon>
+  </button>
 
 </div>

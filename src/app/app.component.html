@@ -1,6 +1,6 @@
 <header>
   <div class="dictionary_label_div">
-    <h1>Словарь имеет <strong>{{this.data.getDictionarySize()}}</strong> слов.</h1>
+    <h1>Словарь содержит <strong>{{this.data.getDictionarySize()}}</strong> слов.</h1>
   </div>
 
   <div class="tab_div">
@@ -19,7 +19,7 @@
     <mat-divider [vertical]="true"></mat-divider>
 
     <a routerLink="/select-words">
-      <button routerLinkActive="active" mat-raised-button color="">Выборать слова</button>
+      <button routerLinkActive="active" mat-raised-button color="">Выбрать слова</button>
     </a>
 
     <mat-divider [vertical]="true"></mat-divider>
@@ -30,6 +30,6 @@
   </div>
 </header>
 
-<div>
+<div class="container">
   <router-outlet></router-outlet>
 </div>
