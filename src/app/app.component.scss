@@ -3,7 +3,7 @@ header {
   //background-color: aqua;
   max-width: 1920px;
 
-  border-bottom: 1px solid white;
+  border-bottom: 2px solid white;
   display: flex;
   justify-content: left;
 
@@ -12,6 +12,7 @@ header {
     text-align: center;
     display: flex;
     align-items: center;
+    padding-left: 1rem;
 
     h1 {
       color: white;
@@ -26,6 +27,46 @@ header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    //a {
+    //  text-decoration: blink;
+    //  font-size: medium;
+    //  color: ghostwhite;
+    //  padding: 10px;
+    //  border-bottom: 2px solid;
+    //  transition: border-bottom-color 0.5s;
+    //
+    //  &:hover {
+    //
+    //  }
+    //}
+
+    a {
+      //background-image: linear-gradient(#FE5568 50%, #FE5568 50%), linear-gradient(transparent 50%, transparent 50%);
+      background-image: linear-gradient(#f44336 50%, #f44336 50%), linear-gradient(transparent 50%, transparent 50%);
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      background-size: 0 3px, 100% 3px;
+      transition: 0.3s ease-in-out;
+      text-decoration: blink;
+      font-size: x-large;
+      color: lavender;
+      padding: 10px;
+
+      &:hover {
+        background-size: 100% 3px, 100% 3px;
+        color: white;
+      }
+
+    }
+
+    .active {
+      background-size: 100% 3px, 100% 3px;
+      color: #69f0ae;
+      &:hover {
+        color: #69f0ae;
+      }
+    }
   }
 
   mat-divider {
@@ -38,7 +79,7 @@ header {
   max-width: 1920px;
 }
 
-.active {
-  color: red;
-  background-color: yellow;
-}
+//.active {
+//  color: red;
+//  background-color: yellow;
+//}
