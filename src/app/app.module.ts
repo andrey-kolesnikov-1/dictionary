@@ -23,6 +23,8 @@ import {LiteWordComponent} from './components/select-words/lite-word/lite-word.c
 import {MatSelectModule} from '@angular/material/select';
 import {CardComponent} from './components/groups/card/card.component';
 import {SuperLiteWordComponent} from './components/groups/super-lite-word/super-lite-word.component';
+import { InfoComponent } from './components/info/info.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import {SuperLiteWordComponent} from './components/groups/super-lite-word/super-
     DialogComponent,
     LiteWordComponent,
     CardComponent,
-    SuperLiteWordComponent
+    SuperLiteWordComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import {SuperLiteWordComponent} from './components/groups/super-lite-word/super-
     MatRadioModule,
     MatCheckboxModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

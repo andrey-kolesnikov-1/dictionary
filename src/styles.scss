@@ -14,9 +14,10 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-image: url("/assets/flag.jpg");
-  background-attachment: fixed;
+  //background-image: url("/assets/flag.jpg");
+  background: black url("/assets/flag.jpg") fixed;
   background-size: cover;
+  box-sizing: border-box;
 }
 
 /////////////////////////////////////////////////////

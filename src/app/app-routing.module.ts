@@ -5,6 +5,7 @@ import {ShowDictionaryComponent} from './components/show-dictionary/show-diction
 import {SelectWordsComponent} from './components/select-words/select-words.component';
 import {GroupsComponent} from './components/groups/groups.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import {InfoComponent} from './components/info/info.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'dictionary', component: ShowDictionaryComponent},
   {path: 'select-words', component: SelectWordsComponent},
   {path: 'groups', component: GroupsComponent},
+  {path: 'info', component: InfoComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

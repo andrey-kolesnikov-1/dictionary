@@ -50,13 +50,14 @@
         display: flex;
         justify-content: space-between;
         padding: 0;
+
         p {
           display: inline;
           margin: 0;
+
           span {
             color: #FFEB3B;
             font-weight: 500;
-            //font-size: large;
           }
         }
       }
@@ -109,6 +110,16 @@
       font-weight: bold;
       line-height: normal;
       margin-top: 3rem;
+      animation: show 0.5s;
+    }
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0
+    }
+    to {
+      opacity: 1
     }
   }
 
@@ -121,11 +132,12 @@
       grid-gap: 0.8rem;
       font-size: 1rem;
 
-      mat-radio-button,mat-checkbox {
+      mat-radio-button, mat-checkbox {
         font-family: cursive;
       }
 
     }
+
     mat-divider {
       margin: 1rem 0;
       border-top-color: rgba(255, 255, 255, 0.7);
