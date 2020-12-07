@@ -20,7 +20,7 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   @ViewChild('selElemEnd', {static: true}) selElemEnd: MatSelect;
   @ViewChild('selElemRandom', {static: true}) selElemRandom: MatSelect;
 
-  constructor(private data: DictionaryService) { }
+  constructor(public data: DictionaryService) { }
 
   ngOnInit(): void {
     this.copyDictionary(this.data.dictionary.values());

@@ -19,7 +19,7 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
   findWord: string = '';
   sub: Subscription;
 
-  constructor(private data: DictionaryService) {
+  constructor(public data: DictionaryService) {
   }
 
   ngOnDestroy(): void {

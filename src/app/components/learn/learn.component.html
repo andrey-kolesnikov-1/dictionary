@@ -17,45 +17,74 @@
   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
   <div class="center_div">
-    <h1 style="text-align: center">Переведите слово:</h1>
-    <p class="word_p">{{wordForTranslate}}</p>
 
-    <div class="control_div">
-      <div class="infoStat">
-        <p>{{data.index}} из {{data.numberOfWords}}</p>
-        <p *ngIf="errorsTranslate !== 0">Ошибок: <span>{{errorsTranslate}}</span></p>
-      </div>
-      <mat-divider></mat-divider>
-      <mat-form-field class="form-field" color="accent">
-        <mat-label>Введите перевод</mat-label>
-        <input #inputElement matInput type="text" autocomplete="off"
-               [(ngModel)]="translate"
-               (keydown.enter)="checkTranslation()"
-               (keydown.control)="nextWord()"
-               (keydown.delete)="translate = ''"
-        >
-      </mat-form-field>
-      <p [ngStyle]="{
+    <div *ngIf="data.dictionary.size !== 0; else main">
+      <h1 style="text-align: center">Переведите слово:</h1>
+      <p class="word_p">{{wordForTranslate}}</p>
+
+      <div class="control_div">
+        <div class="infoStat">
+          <p>{{data.index}} из {{data.numberOfWords}}</p>
+          <p *ngIf="errorsTranslate !== 0">Ошибок: <span>{{errorsTranslate}}</span></p>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-form-field class="form-field" color="accent">
+          <mat-label>Введите перевод</mat-label>
+          <input #inputElement matInput type="text" autocomplete="off"
+                 [(ngModel)]="translate"
+                 (keydown.enter)="checkTranslation()"
+                 (keydown.control)="nextWord()"
+                 (keydown.delete)="translate = ''"
+          >
+        </mat-form-field>
+        <p [ngStyle]="{
     opacity: isShowTranslate ? 1 : 0
     }" class="translate_p">{{trueTranslate}}</p>
-      <div class="btn_ctrl_div">
-        <button mat-raised-button color="warn"
-                (click)="checkTranslation()"
-                [disabled]="translate.trim().length === 0 || sentence.word === ''">
-          Проверить (Enter)
-        </button>
-        <button mat-raised-button color="warn" (click)="nextWord()">Следующее слово (Ctrl)</button>
-        <button mat-raised-button color="warn" (click)="previousWord()" [disabled]="data.setting.random">Предидущее
-          слово
-        </button>
-        <button mat-raised-button color="warn" (click)="showTranslation()" [disabled]="trueTranslate === '0'">Показать
-          перевод
-        </button>
-      </div>
+        <div class="btn_ctrl_div">
+          <button mat-raised-button color="warn"
+                  (click)="checkTranslation()"
+                  [disabled]="translate.trim().length === 0 || sentence.word === ''">
+            Проверить (Enter)
+          </button>
+          <button mat-raised-button color="warn" (click)="nextWord()">Следующее слово (Ctrl)</button>
+          <button mat-raised-button color="warn" (click)="previousWord()" [disabled]="data.setting.random">Предидущее
+            слово
+          </button>
+          <button mat-raised-button color="warn" (click)="showTranslation()" [disabled]="trueTranslate === '0'">Показать
+            перевод
+          </button>
+        </div>
 
-      <mat-divider></mat-divider>
-      <p *ngIf="isShowAnswer" class="answer_p">{{answer}}</p>
+        <mat-divider></mat-divider>
+        <p *ngIf="isShowAnswer" class="answer_p">{{answer}}</p>
+      </div>
     </div>
+
+    <ng-template #main>
+      <div>
+        <h1>Словарь пока пуст!</h1>
+        <p>Давайте добавим в него несколько слов и выражений! Скопируйте следующие выражения и вставте в поле для ввода:</p>
+<pre>
+Seem = кажется, казаться
+Happen = происходить, случаться
+Fluently = свободно
+Wash up the dishes = мыть посуду
+Relax = отдыхать
+</pre>
+        <mat-form-field class="form-field" color="accent">
+          <mat-label>Добавление новых слов в словарь.</mat-label>
+          <textarea matInput placeholder="Формат ввода: << слово = перевод >>" autocomplete="off"
+                    [(ngModel)]="textForDictionary"
+          ></textarea>
+        </mat-form-field>
+
+        <div *ngIf="textForDictionary">
+          <p>Отлично! Теперь осталось только добавить их в словарь, для этого нажмите кнопку "Добавить". Дальнейшие
+          действия со словарем можно производить на вкладке "Словарь".</p>
+          <button mat-raised-button color="warn" (click)="addTestWords()">Добавить</button>
+        </div>
+      </div>
+    </ng-template>
   </div>
 
   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->

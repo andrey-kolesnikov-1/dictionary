@@ -74,6 +74,7 @@
       >
     </mat-form-field>
     <div class="container_words_div">
+      <h1 *ngIf="data.dictionary.size === 0" style="color: white; text-align: center">Список слов пуст.</h1>
       <app-word-component *ngFor="let item of dictionaryArray"
                           [word]="item"
                           [mark]="item.mark"
@@ -114,7 +115,9 @@
     <mat-divider></mat-divider>
     <p>Удаление словаря</p>
     <div class="btn_new_words_div">
-      <button mat-raised-button color="warn" (click)="deleteAllDictionary()">Удалить словарь</button>
+      <button mat-raised-button color="warn" (click)="deleteAllDictionary()" [disabled]="data.dictionary.size === 0">
+        Удалить словарь
+      </button>
     </div>
   </div>
 </div>

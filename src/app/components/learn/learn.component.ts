@@ -23,16 +23,20 @@ export class LearnComponent implements OnInit {
   errorsTranslate: number = 0;
   iconSound: string = 'volume_up';
   colorSoundBtn: string = 'accent';
+  textForDictionary: string = '';
 
-  @ViewChild('inputElement', {static: true}) input: ElementRef;
+  @ViewChild('inputElement') input: ElementRef;
 
 
   constructor(public data: DictionaryService, private audio: AudioService) {
   }
 
   ngOnInit(): void {
-    this.errorsTranslate = 0;
-    this.nextWord();
+    if (this.data.dictionary.size > 0) {
+      this.errorsTranslate = 0;
+      this.data.index = 0;
+      setTimeout(() => this.nextWord(), 50);
+    }
   }
 
   checkTranslation() {
@@ -112,5 +116,11 @@ export class LearnComponent implements OnInit {
       this.iconSound = 'volume_up';
       this.colorSoundBtn = 'accent';
     }
+  }
+
+  addTestWords() {
+    this.data.addWordsToDictionary(this.textForDictionary);
+    this.data.index = 0;
+    setTimeout(() => this.nextWord(), 50);
   }
 }

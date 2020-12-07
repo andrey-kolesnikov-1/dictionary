@@ -125,6 +125,8 @@
     </mat-form-field>
 
     <div class="container_words_div" (click)="checkSelectedWords()">
+      <h1 *ngIf="data.dictionary.size === 0" style="color: white; text-align: center">Список слов пуст.</h1>
+
       <app-lite-word *ngFor="let item of dictionaryArray" [word]="item"></app-lite-word>
     </div>
   </div>
