@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Word} from './interfaces';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
+import {GroupsService} from './groups.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class DictionaryService {
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private group: GroupsService) {
     if (localStorage.getItem('dictionary') !== null) {
       this.dictionary = new Map(JSON.parse(localStorage.getItem('dictionary')));
     }
@@ -102,6 +103,7 @@ export class DictionaryService {
     this.dictionary.clear();
     this.saveWords();
     this.stream$.next();
+    this.group.deleteAllGroups();
   }
 
   // удаление слова из словаря

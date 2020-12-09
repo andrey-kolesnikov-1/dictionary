@@ -3,6 +3,7 @@ import {GroupsService} from '../../shared/groups.service';
 import {Group, Word, WordsForGroup} from '../../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {DictionaryService} from '../../shared/dictionary.service';
+import {AudioService} from '../../shared/audio.service';
 
 @Component({
   selector: 'app-groups',
@@ -28,7 +29,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   @ViewChild('inputElement') inputElement: ElementRef;
 
 
-  constructor(private dataGroup: GroupsService, private data: DictionaryService) {
+  constructor(private dataGroup: GroupsService, private data: DictionaryService, private audio: AudioService) {
   }
 
 
@@ -97,6 +98,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   addNewGroup() { //кнопка "Добавить группу"
+    this.audio.play('button 1');
     this.nameNewGroup = '';
     this.selectGroup('');
     this.infoSelectedGroup = false;
@@ -107,6 +109,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   saveNewGroup() { // сохранение новой группы
+    this.audio.play('button 1');
     let name = this.nameNewGroup.trim();
     if (!name) return;
     const group = { // создаем объект описания группы
@@ -122,7 +125,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     });
     arr.unshift(group); // помещаем первым элементом массива объект описания
     this.dataGroup.addNewGroup(group.name, arr); // сохраняем группу в сервисе
-    this.cancelCreateNewGroup(); // закрываем форму новой группы и доступные слова
+    this.cancelNewGroup(); // закрываем форму новой группы и доступные слова
   }
 
   getDate(): string { // получение и форматирование даты
@@ -134,6 +137,11 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   cancelCreateNewGroup() { // закрываем форму новой группы и доступные слова
+    this.audio.play('button 1');
+    this.cancelNewGroup();
+  }
+
+  cancelNewGroup() {
     this.formNewGroup = this.toggleInfoWords = false;
     this.tempSelectedWords = [];
   }
@@ -147,6 +155,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   saveChangeGroup() { // сохранение изменений в выбранной группе
+    this.audio.play('button 1');
     const arr: any[] = this.tempSelectedWords.map(value => value.split('=')[0].trim());
     this.dataGroup.saveEditedGroup(this.nameSelectedGroup, arr);
     this.infoSelectedGroup = this.toggleInfoWords = false;

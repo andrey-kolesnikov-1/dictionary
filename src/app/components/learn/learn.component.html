@@ -46,7 +46,7 @@
                   [disabled]="translate.trim().length === 0 || sentence.word === ''">
             Проверить (Enter)
           </button>
-          <button mat-raised-button color="warn" (click)="nextWord()">Следующее слово (Ctrl)</button>
+          <button mat-raised-button color="warn" (click)="toNextWord()">Следующее слово (Ctrl)</button>
           <button mat-raised-button color="warn" (click)="previousWord()" [disabled]="data.setting.random">Предидущее
             слово
           </button>
@@ -63,15 +63,16 @@
     <ng-template #main>
       <div>
         <h1>Словарь пока пуст!</h1>
-        <p>Давайте добавим в него несколько слов и выражений! Скопируйте следующие выражения и вставте в поле для ввода:</p>
-<pre>
+        <p>Давайте добавим в него несколько слов и выражений! Скопируйте следующие выражения и вставте в поле для
+          ввода:</p>
+        <pre>
 Seem = кажется, казаться
 Happen = происходить, случаться
 Fluently = свободно
 Wash up the dishes = мыть посуду
 Relax = отдыхать
 </pre>
-        <mat-form-field class="form-field" color="accent">
+        <mat-form-field appearance="standard" class="form-field" color="accent">
           <mat-label>Добавление новых слов в словарь.</mat-label>
           <textarea matInput placeholder="Формат ввода: << слово = перевод >>" autocomplete="off"
                     [(ngModel)]="textForDictionary"
@@ -80,7 +81,7 @@ Relax = отдыхать
 
         <div *ngIf="textForDictionary">
           <p>Отлично! Теперь осталось только добавить их в словарь, для этого нажмите кнопку "Добавить". Дальнейшие
-          действия со словарем можно производить на вкладке "Словарь".</p>
+            действия со словарем можно производить на вкладке "Словарь".</p>
           <button mat-raised-button color="warn" (click)="addTestWords()">Добавить</button>
         </div>
       </div>
@@ -100,10 +101,10 @@ Relax = отдыхать
 
     <section class="sel_lang">
       <strong>Порядок слов:</strong>
-      <mat-checkbox color="accent" [checked]="data.setting.random" (change)="data.setting.random = $event.checked">
+      <mat-checkbox color="accent" [checked]="data.setting.random" (change)="randomWords($event)">
         Случайный порядок
       </mat-checkbox>
-      <mat-checkbox color="accent" [checked]="data.setting.repeat" (change)="data.setting.repeat = $event.checked">
+      <mat-checkbox color="accent" [checked]="data.setting.repeat" (change)="repeatWords($event)">
         Повтор слов
       </mat-checkbox>
     </section>

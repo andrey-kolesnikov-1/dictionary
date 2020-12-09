@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Group} from '../../../shared/interfaces';
 import {GroupsService} from '../../../shared/groups.service';
 import {DictionaryService} from '../../../shared/dictionary.service';
+import {AudioService} from '../../../shared/audio.service';
 
 @Component({
   selector: 'app-card',
@@ -14,7 +15,7 @@ export class CardComponent implements OnInit {
   @Output() onSelected: EventEmitter<string> = new EventEmitter<string>();
   isDelete: boolean = false;
 
-  constructor( private dataGroup: GroupsService, private data: DictionaryService) { }
+  constructor( private dataGroup: GroupsService, private data: DictionaryService, private audio: AudioService) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +23,7 @@ export class CardComponent implements OnInit {
   clickCard(event) { // нажатие по карточке группы
     let target = event.target.localName;
     if(target == 'div' || target =='p' || target =='strong' || target =='h2') {
+      this.audio.play('click 2');
       if (!this.group.selected) {
         this.onSelected.emit(this.group.name);
       } else {
@@ -31,7 +33,13 @@ export class CardComponent implements OnInit {
   }
 
   editGroup() { // кнопка "Редактировать"
+    this.audio.play('button 1');
     this.onSelected.emit(this.group.name);
+  }
+
+  toDelete() {
+    this.isDelete = true;
+    this.audio.play('button 1');
   }
 
   deleteGroup() { // кнопка "Удалить"
@@ -39,6 +47,7 @@ export class CardComponent implements OnInit {
   }
 
   toLearn() { // кнопка "Изучить"
+    this.audio.play('button 1');
     // модифицируем статистику группы в хранилище
     const status = this.dataGroup.groups.get(this.group.name);
     status[0].numberUse++;

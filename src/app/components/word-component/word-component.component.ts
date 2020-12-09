@@ -11,6 +11,7 @@ import {
 import {Word} from '../../shared/interfaces';
 import {DictionaryService} from '../../shared/dictionary.service';
 import {Subscription} from 'rxjs';
+import {AudioService} from '../../shared/audio.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class WordComponentComponent implements OnInit, OnChanges {
   edit: boolean = false;
 
 
-  constructor(private data: DictionaryService) {
+  constructor(private data: DictionaryService,private audio: AudioService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -47,7 +48,6 @@ export class WordComponentComponent implements OnInit, OnChanges {
     this.show();
   }
 
-
   show() {
     let str = '';
     let tab = '';
@@ -59,6 +59,7 @@ export class WordComponentComponent implements OnInit, OnChanges {
   }
 
   selectWord() {
+    this.audio.play('click 2');
     if (!this.mark) { // если слово отмеченно - подписываемся на сервис
       this.tempText = this.text;
       this.stream$ = this.data.streamShowWord$.subscribe(command => {

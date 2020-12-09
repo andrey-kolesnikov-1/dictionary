@@ -119,7 +119,7 @@
   </div>
 
   <div class="center_div">
-    <mat-form-field class="form-field" color="accent">
+    <mat-form-field appearance="standard" class="form-field" color="accent">
       <mat-label>Поиск</mat-label>
       <input matInput type="text" autocomplete="off" [(ngModel)]="findWord" (input)="checkFind()">
     </mat-form-field>
@@ -138,8 +138,8 @@
     <mat-divider></mat-divider>
 
     <p>Выбор количества слов с конца словаря</p>
-    <mat-form-field color="accent">
-      <mat-label>Выбор количества слов</mat-label>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Количество слов</mat-label>
       <mat-select #selElemEnd value="off" (selectionChange)="setWordsFromEnd($event)">
         <mat-option value="off">Выключено</mat-option>
         <mat-option value="10">10 слов</mat-option>
@@ -151,8 +151,8 @@
     <mat-divider></mat-divider>
 
     <p>Выбор количества случайных слов со всего словаря</p>
-    <mat-form-field color="accent">
-      <mat-label>Выбор количества слов</mat-label>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Количество слов</mat-label>
       <mat-select #selElemRandom value="off" (selectionChange)="setRandomWords($event)">
         <mat-option value="off">Выключено</mat-option>
         <mat-option value="10">10 слов</mat-option>

@@ -3,6 +3,7 @@ import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { DictionaryService } from 'src/app/shared/dictionary.service';
 import { Word } from 'src/app/shared/interfaces';
 import {Subscription} from 'rxjs';
+import {AudioService} from '../../shared/audio.service';
 
 @Component({
   selector: 'app-select-words',
@@ -20,7 +21,7 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   @ViewChild('selElemEnd', {static: true}) selElemEnd: MatSelect;
   @ViewChild('selElemRandom', {static: true}) selElemRandom: MatSelect;
 
-  constructor(public data: DictionaryService) { }
+  constructor(public data: DictionaryService, private audio: AudioService) { }
 
   ngOnInit(): void {
     this.copyDictionary(this.data.dictionary.values());
@@ -69,6 +70,7 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   }
 
   setRandomWords(event: MatSelectChange) {
+    this.audio.play('click 2');
     this.checkSelectedWords('reset');
     if (event.value === 'off') return;
     this.selElemEnd.value = 'off';
@@ -92,6 +94,7 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   }
 
   setWordsFromEnd(event: MatSelectChange) {
+    this.audio.play('click 2');
     this.checkSelectedWords('reset');
     if (event.value === 'off') return;
     this.selElemRandom.value = 'off';
@@ -117,6 +120,7 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   }
 
   resetAll() {
+    this.audio.play('button 1');
     this.checkSelectedWords('reset');
     this.selElemEnd.value = 'off';
     this.selElemRandom.value = 'off';
@@ -124,6 +128,7 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   }
 
   toLearn() { // передаёт массив выбранных слов
+    this.audio.play('button 1');
     const arr = [];
     for (let item of this.selectedWordsArray) {
       for (let value of this.dictionaryArray) {

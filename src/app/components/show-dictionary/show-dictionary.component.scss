@@ -19,10 +19,15 @@
     border-right: 1px dashed white;
     position: relative;
 
+    mat-form-field {
+      bottom: 15px;
+    }
+
     .form-field {
       width: 350px;
       font-size: 1rem;
       color: white;
+
     }
   }
 
@@ -53,6 +58,8 @@
     }
   }
 
+
+
   .right_div {
     color: white;
 
@@ -64,6 +71,10 @@
       textarea {
         height: 300px;
         resize: none;
+      }
+
+      mat-label{
+          color: white;
       }
     }
 

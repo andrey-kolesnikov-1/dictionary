@@ -2,7 +2,7 @@
   <div class="left_div">
     <div *ngIf="toggleInfoWords">
       <h2>Список доступных слов</h2>
-      <mat-form-field class="form-field" color="accent">
+      <mat-form-field appearance="standard" class="form-field" color="accent">
         <mat-label>Поиск</mat-label>
         <input matInput type="text" autocomplete="off" [(ngModel)]="findWord" (input)="checkFind()">
       </mat-form-field>

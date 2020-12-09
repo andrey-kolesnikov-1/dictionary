@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AudioService} from '../../shared/audio.service';
 
 @Component({
   selector: 'app-dialog',
@@ -14,13 +15,14 @@ export class DialogComponent implements OnInit {
   @Input() textButtonClose: string = '';
   active: boolean = false
 
-  constructor() {
+  constructor(private audio: AudioService) {
   }
 
   ngOnInit(): void {
   }
 
   closeDialog() {
+    this.audio.play('button 1');
     this.onClose.emit();
   }
 

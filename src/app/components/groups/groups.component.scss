@@ -44,6 +44,10 @@
     overflow: hidden;
     position: relative;
 
+    mat-form-field {
+      bottom: 15px;
+    }
+
     div {
       position: absolute;
       left: 20px;

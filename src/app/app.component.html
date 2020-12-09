@@ -4,15 +4,15 @@
   </div>
 
   <div class="tab_div">
-      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Изучение</a>
+    <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="clickLink()">Изучение</a>
 
-      <a routerLink="/dictionary" routerLinkActive="active">Словарь</a>
+    <a routerLink="/dictionary" routerLinkActive="active" (click)="clickLink()">Словарь</a>
 
-      <a routerLink="/select-words" routerLinkActive="active">Выбор слов</a>
+    <a routerLink="/select-words" routerLinkActive="active" (click)="clickLink()">Выбор слов</a>
 
-      <a routerLink="/groups" routerLinkActive="active">Группы слов</a>
+    <a routerLink="/groups" routerLinkActive="active" (click)="clickLink()">Группы слов</a>
 
-    <a routerLink="/info" routerLinkActive="active">Справка</a>
+    <a routerLink="/info" routerLinkActive="active" (click)="clickLink()">Справка</a>
   </div>
 </header>
 

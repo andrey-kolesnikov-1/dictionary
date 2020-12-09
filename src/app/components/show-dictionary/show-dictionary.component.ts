@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DictionaryService} from '../../shared/dictionary.service';
 import {Word} from '../../shared/interfaces';
 import {Subscription} from 'rxjs';
+import {AudioService} from '../../shared/audio.service';
 
 @Component({
   selector: 'app-show-dictionary',
@@ -19,11 +20,13 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
   findWord: string = '';
   sub: Subscription;
 
-  constructor(public data: DictionaryService) {
+  constructor(public data: DictionaryService, private audio: AudioService) {
   }
 
   ngOnDestroy(): void {
-    this.controlSelectedWord(3);
+    // this.controlSelectedWord(3);
+    this.data.setCommandForWord(3);
+    this.cancelActionWord();
     this.sub.unsubscribe();
   }
 
@@ -93,6 +96,7 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
   }
 
   controlSelectedWord(command: number) {
+    this.audio.play('button 1');
     switch (command) {
       case 1: // редактировать
         this.data.setCommandForWord(command);
@@ -114,5 +118,10 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
   deleteWord() {
     this.cancelActionWord();
     this.data.setCommandForWord(4);
+  }
+
+  clrSel() {
+    this.data.setCommandForWord(3);
+    this.cancelActionWord();
   }
 }

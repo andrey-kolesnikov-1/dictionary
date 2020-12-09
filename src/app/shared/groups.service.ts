@@ -46,6 +46,11 @@ export class GroupsService {
     this.save();
   }
 
+  deleteAllGroups() {
+    this.groups.clear();
+    this.save();
+  }
+
   save() {
     this.saveGroups();
     this.getGroups();

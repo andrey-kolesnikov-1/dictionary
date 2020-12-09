@@ -70,7 +70,13 @@ export class LearnComponent implements OnInit {
     this.checkEmptyAnswer();
   }
 
+  toNextWord() {
+    this.audio.play('button 1');
+    this.nextWord();
+  }
+
   showTranslation() {
+    this.audio.play('button 1');
     this.isShowTranslate = !this.isShowTranslate;
   }
 
@@ -80,12 +86,14 @@ export class LearnComponent implements OnInit {
   }
 
   changeLanguage(event: MatRadioChange) {
+    this.audio.play('click 2');
     this.data.setting.language = event.value;
     this.data.index--;
     this.nextWord();
   }
 
   changeLearnWords(event: MatRadioChange) {
+    this.audio.play('click 2');
     this.data.setting.learnWords = event.value;
     switch (event.value) {
       case 'all':
@@ -102,7 +110,18 @@ export class LearnComponent implements OnInit {
     }
   }
 
+  randomWords(event: MatCheckboxChange) {
+    this.audio.play('click 2');
+    this.data.setting.random = event.checked;
+  }
+
+  repeatWords(event: MatCheckboxChange) {
+    this.audio.play('click 2');
+    this.data.setting.repeat = event.checked
+  }
+
   previousWord() {
+    this.audio.play('button 1');
     this.data.index = this.data.index < 2 ? this.data.numberOfWords - 1 : this.data.index -= 2;
     this.nextWord();
   }
@@ -116,9 +135,11 @@ export class LearnComponent implements OnInit {
       this.iconSound = 'volume_up';
       this.colorSoundBtn = 'accent';
     }
+    this.audio.play('button 1');
   }
 
   addTestWords() {
+    this.audio.play('button 1');
     this.data.addWordsToDictionary(this.textForDictionary);
     this.data.index = 0;
     setTimeout(() => this.nextWord(), 50);
