@@ -1,14 +1,13 @@
-
 <div
-class="container"
-(click)="selectWord()"
-[ngClass]="{
+  class="container"
+  (click)="selectWord()"
+  [ngClass]="{
 selected_word: word.selected
 }"
 >
-<div class="number_div">{{word.number}}.</div>
-<div class="content_div">
+  <div class="number_div">{{word.number}}.</div>
+  <div class="content_div">
     <p>{{word.text}}</p>
-</div>
+  </div>
 </div>
 

@@ -6,11 +6,11 @@
   <h1 style="text-align: center">{{dialog}}</h1>
   <mat-divider></mat-divider>
   <div class="btn_div">
-    <button class="btn_agree" mat-raised-button color="primary"
+    <button class="btn_agree" mat-raised-button color="primary" appSound="btn"
             (click)="agree()"
             (mouseover)="active = true"
             (mouseout)="active = false"
     >{{textButtonAgree}}</button>
-    <button mat-raised-button color="primary" (click)="closeDialog()">{{textButtonClose}}</button>
+    <button mat-raised-button color="primary" appSound="btn" (click)="closeDialog()">{{textButtonClose}}</button>
   </div>
 </div>

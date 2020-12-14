@@ -1,4 +1,4 @@
-<!-- <app-lite-word></app-lite-word> -->
+
 <div class="container">
   <div class="left_div" (click)="isScrollTextInfo = !isScrollTextInfo">
     <div [ngStyle]="{overflow: isScrollTextInfo ? 'auto' : 'hidden'}">
@@ -124,10 +124,12 @@
       <input matInput type="text" autocomplete="off" [(ngModel)]="findWord" (input)="checkFind()">
     </mat-form-field>
 
+    <app-toggle-turn appSound="control" (onReverse)="reverseArray($event)"></app-toggle-turn>
+
     <div class="container_words_div" (click)="checkSelectedWords()">
       <h1 *ngIf="data.dictionary.size === 0" style="color: white; text-align: center">Список слов пуст.</h1>
 
-      <app-lite-word *ngFor="let item of dictionaryArray" [word]="item"></app-lite-word>
+      <app-lite-word appSound="control" *ngFor="let item of dictionaryArray" [word]="item"></app-lite-word>
     </div>
   </div>
 
@@ -141,10 +143,10 @@
     <mat-form-field appearance="outline" color="accent">
       <mat-label>Количество слов</mat-label>
       <mat-select #selElemEnd value="off" (selectionChange)="setWordsFromEnd($event)">
-        <mat-option value="off">Выключено</mat-option>
-        <mat-option value="10">10 слов</mat-option>
-        <mat-option value="20">20 слов</mat-option>
-        <mat-option value="30">30 слов</mat-option>
+        <mat-option appSound="control" value="off">Выключено</mat-option>
+        <mat-option appSound="control" value="10">10 слов</mat-option>
+        <mat-option appSound="control" value="20">20 слов</mat-option>
+        <mat-option appSound="control" value="30">30 слов</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -154,22 +156,24 @@
     <mat-form-field appearance="outline" color="accent">
       <mat-label>Количество слов</mat-label>
       <mat-select #selElemRandom value="off" (selectionChange)="setRandomWords($event)">
-        <mat-option value="off">Выключено</mat-option>
-        <mat-option value="10">10 слов</mat-option>
-        <mat-option value="20">20 слов</mat-option>
-        <mat-option value="30">30 слов</mat-option>
-        <mat-option value="50">50 слов</mat-option>
-        <mat-option value="75">75 слов</mat-option>
-        <mat-option value="100">100 слов</mat-option>
+        <mat-option appSound="control" value="off">Выключено</mat-option>
+        <mat-option appSound="control" value="10">10 слов</mat-option>
+        <mat-option appSound="control" value="20">20 слов</mat-option>
+        <mat-option appSound="control" value="30">30 слов</mat-option>
+        <mat-option appSound="control" value="50">50 слов</mat-option>
+        <mat-option appSound="control" value="75">75 слов</mat-option>
+        <mat-option appSound="control" value="100">100 слов</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-divider></mat-divider>
 
-    <button mat-raised-button color="warn" [disabled]="numberSelectedWords == 0" (click)="toLearn()">Изучить</button>
-    <button mat-raised-button color="warn" [disabled]="numberSelectedWords == 0" (click)="resetAll()">
-      Сбросить все</button>
-
+    <button appSound="btn" mat-raised-button color="warn" [disabled]="numberSelectedWords == 0" (click)="toLearn()">
+      Изучить
+    </button>
+    <button appSound="btn" mat-raised-button color="warn" [disabled]="numberSelectedWords == 0" (click)="resetAll()">
+      Сбросить все
+    </button>
 
   </div>
 </div>

@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
 import {DictionaryService} from '../../shared/dictionary.service';
 import {Word} from '../../shared/interfaces';
 import {MatRadioChange} from '@angular/material/radio';
@@ -27,11 +26,11 @@ export class LearnComponent implements OnInit {
 
   @ViewChild('inputElement') input: ElementRef;
 
-
   constructor(public data: DictionaryService, private audio: AudioService) {
   }
 
   ngOnInit(): void {
+    this.viewBtnSound();
     if (this.data.dictionary.size > 0) {
       this.errorsTranslate = 0;
       this.data.index = 0;
@@ -48,7 +47,9 @@ export class LearnComponent implements OnInit {
       } else {
         this.answer = this.sentence.word.includes(translate) ? 'Верно' : 'Неверно!';
       }
-      if (this.answer === 'Неверно!') this.errorsTranslate++;
+      if (this.answer === 'Неверно!') {
+        this.errorsTranslate++;
+      }
       if (translate) {
         this.isShowAnswer = true;
         this.isShowTranslate = false;
@@ -71,12 +72,10 @@ export class LearnComponent implements OnInit {
   }
 
   toNextWord() {
-    this.audio.play('button 1');
     this.nextWord();
   }
 
   showTranslation() {
-    this.audio.play('button 1');
     this.isShowTranslate = !this.isShowTranslate;
   }
 
@@ -86,14 +85,12 @@ export class LearnComponent implements OnInit {
   }
 
   changeLanguage(event: MatRadioChange) {
-    this.audio.play('click 2');
     this.data.setting.language = event.value;
     this.data.index--;
     this.nextWord();
   }
 
   changeLearnWords(event: MatRadioChange) {
-    this.audio.play('click 2');
     this.data.setting.learnWords = event.value;
     switch (event.value) {
       case 'all':
@@ -111,23 +108,24 @@ export class LearnComponent implements OnInit {
   }
 
   randomWords(event: MatCheckboxChange) {
-    this.audio.play('click 2');
     this.data.setting.random = event.checked;
   }
 
   repeatWords(event: MatCheckboxChange) {
-    this.audio.play('click 2');
-    this.data.setting.repeat = event.checked
+    this.data.setting.repeat = event.checked;
   }
 
   previousWord() {
-    this.audio.play('button 1');
     this.data.index = this.data.index < 2 ? this.data.numberOfWords - 1 : this.data.index -= 2;
     this.nextWord();
   }
 
   toggleSound() {
     this.audio.soundOff = !this.audio.soundOff;
+    this.viewBtnSound();
+  }
+
+  viewBtnSound() {
     if (this.audio.soundOff) {
       this.iconSound = 'volume_off';
       this.colorSoundBtn = '';
@@ -135,11 +133,9 @@ export class LearnComponent implements OnInit {
       this.iconSound = 'volume_up';
       this.colorSoundBtn = 'accent';
     }
-    this.audio.play('button 1');
   }
 
   addTestWords() {
-    this.audio.play('button 1');
     this.data.addWordsToDictionary(this.textForDictionary);
     this.data.index = 0;
     setTimeout(() => this.nextWord(), 50);

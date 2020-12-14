@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DictionaryService} from '../../shared/dictionary.service';
 import {Word} from '../../shared/interfaces';
 import {Subscription} from 'rxjs';
-import {AudioService} from '../../shared/audio.service';
 
 @Component({
   selector: 'app-show-dictionary',
@@ -19,15 +18,9 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
   isEmptyField: boolean = true;
   findWord: string = '';
   sub: Subscription;
+  reverse: boolean = false;
 
-  constructor(public data: DictionaryService, private audio: AudioService) {
-  }
-
-  ngOnDestroy(): void {
-    // this.controlSelectedWord(3);
-    this.data.setCommandForWord(3);
-    this.cancelActionWord();
-    this.sub.unsubscribe();
+  constructor(public data: DictionaryService) {
   }
 
   ngOnInit(): void {
@@ -37,25 +30,39 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    this.data.setCommandForWord(3);
+    this.cancelActionWord();
+    this.sub.unsubscribe();
+  }
+
+  reverseArray(toggle: boolean) {
+    this.reverse = toggle;
+    this.dictionaryArray.reverse();
+  }
+
   copyDictionary(data) {
     this.dictionaryArray = [];
     for (let item of data) {
       this.dictionaryArray.push(item);
     }
+    if (this.reverse) {
+      this.dictionaryArray.reverse();
+    }
   }
 
   checkFind() {
     if (this.findWord.trim()) {
-      let text = this.findWord.trim()
-      let arr = []
+      let text = this.findWord.trim();
+      let arr = [];
       for (let value of this.data.dictionary.values()) {
         if (value.word.includes(text) || value.translation.includes(text)) {
-          arr.push(value)
+          arr.push(value);
         }
       }
-      this.copyDictionary(arr)
+      this.copyDictionary(arr);
     } else {
-      this.copyDictionary(this.data.dictionary.values())
+      this.copyDictionary(this.data.dictionary.values());
     }
   }
 
@@ -96,7 +103,6 @@ export class ShowDictionaryComponent implements OnInit, OnDestroy {
   }
 
   controlSelectedWord(command: number) {
-    this.audio.play('button 1');
     switch (command) {
       case 1: // редактировать
         this.data.setCommandForWord(command);

@@ -23,8 +23,10 @@ import {LiteWordComponent} from './components/select-words/lite-word/lite-word.c
 import {MatSelectModule} from '@angular/material/select';
 import {CardComponent} from './components/groups/card/card.component';
 import {SuperLiteWordComponent} from './components/groups/super-lite-word/super-lite-word.component';
-import { InfoComponent } from './components/info/info.component';
+import {InfoComponent} from './components/info/info.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {ToggleTurnComponent} from './components/toggle-turn/toggle-turn.component';
+import {SoundDirective} from './directives/sound.directive';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     LiteWordComponent,
     CardComponent,
     SuperLiteWordComponent,
-    InfoComponent
+    InfoComponent,
+    ToggleTurnComponent,
+    SoundDirective
   ],
   imports: [
     BrowserModule,

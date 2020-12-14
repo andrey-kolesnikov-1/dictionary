@@ -1,20 +1,20 @@
 <div class="card_container"
-(click)="clickCard($event)"
-[ngClass]="{
+     (click)="clickCard($event)"
+     [ngClass]="{
     selected_card: group.selected
 }"
 >
-    <h2>{{group.name}}</h2>
-    <p>Содержит <strong>{{group.numberWords}}</strong> слов</p>
-    <p>Создана <strong>{{group.dateCreate}}</strong></p>
-    <p>Использовалась <strong>{{group.numberUse}}</strong> раз</p>
-    <p>Последнее использование <strong>{{group.lastUse}}</strong></p>
+  <h2>{{group.name}}</h2>
+  <p>Содержит <strong>{{group.numberWords}}</strong> слов</p>
+  <p>Создана <strong>{{group.dateCreate}}</strong></p>
+  <p>Использовалась <strong>{{group.numberUse}}</strong> раз</p>
+  <p>Последнее использование <strong>{{group.lastUse}}</strong></p>
 
-    <div class="btn">
-        <button mat-button color="warn" (click)="toLearn()">Изучить</button>
-        <button mat-button color="warn" (click)="toDelete()">Удалить</button>
-        <button mat-button color="warn" (click)="editGroup()">Редактировать</button>
-    </div>
+  <div class="btn">
+    <button appSound="btn" mat-button color="warn" (click)="toLearn()">Изучить</button>
+    <button appSound="btn" mat-button color="warn" (click)="toDelete()">Удалить</button>
+    <button appSound="btn" mat-button color="warn" (click)="editGroup()">Редактировать</button>
+  </div>
 </div>
 
 <app-dialog *ngIf="isDelete"

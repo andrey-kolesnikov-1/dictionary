@@ -6,7 +6,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,600&display=swap');
 
 
-
 html, body {
   height: 100%;
 }
@@ -14,23 +13,23 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  //background-image: url("/assets/flag.jpg");
   background: black url("/assets/flag.jpg") fixed;
   background-size: cover;
   box-sizing: border-box;
 }
 
-/////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
 ::-webkit-scrollbar {
   width: 8px;
   height: auto;
 }
+
 ::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #0080ff;
   border: 0px none #ffffff;
@@ -42,17 +41,20 @@ body {
   background: -ms-linear-gradient(#0d4718, #097900);
   background: linear-gradient(#0d4718, #097900);
 }
+
 //::-webkit-scrollbar-thumb:hover {
 //  background: #0000a0;
 //}
 ::-webkit-scrollbar-thumb:active {
   background: #169200;
 }
+
 ::-webkit-scrollbar-track {
   background: #bababa;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
+
 ::-webkit-scrollbar-corner {
   background: transparent;
 }

@@ -13,7 +13,6 @@
   &:hover {
     background-color: rgb(0, 208, 255, 30%);
     border: 2px solid black;
-    //transform: translate(2px, -2px);
   }
 
   &.selected_word {
@@ -21,7 +20,6 @@
     border: 2px solid #168b01;
   }
 }
-
 
 .number_div {
   font-family: monospace;

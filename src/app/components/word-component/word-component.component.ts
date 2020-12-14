@@ -3,7 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   Output,
   SimpleChanges, ViewChild
@@ -11,15 +11,13 @@ import {
 import {Word} from '../../shared/interfaces';
 import {DictionaryService} from '../../shared/dictionary.service';
 import {Subscription} from 'rxjs';
-import {AudioService} from '../../shared/audio.service';
-
 
 @Component({
   selector: 'app-word-component',
   templateUrl: './word-component.component.html',
   styleUrls: ['./word-component.component.scss']
 })
-export class WordComponentComponent implements OnInit, OnChanges {
+export class WordComponentComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() word: Word;
   @Input() mark: boolean = false;
@@ -31,18 +29,16 @@ export class WordComponentComponent implements OnInit, OnChanges {
   stream$: Subscription;
   edit: boolean = false;
 
-
-  constructor(private data: DictionaryService,private audio: AudioService) {
+  constructor(private data: DictionaryService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.mark.previousValue == true) {
+    if (changes.mark.previousValue) {
       this.stream$.unsubscribe();
       this.edit = false;
       this.text = this.tempText;
     }
   }
-
 
   ngOnInit(): void {
     this.show();
@@ -59,7 +55,6 @@ export class WordComponentComponent implements OnInit, OnChanges {
   }
 
   selectWord() {
-    this.audio.play('click 2');
     if (!this.mark) { // если слово отмеченно - подписываемся на сервис
       this.tempText = this.text;
       this.stream$ = this.data.streamShowWord$.subscribe(command => {
@@ -113,4 +108,7 @@ export class WordComponentComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.stream$) this.stream$.unsubscribe();
+  }
 }

@@ -46,11 +46,13 @@
                   [disabled]="translate.trim().length === 0 || sentence.word === ''">
             Проверить (Enter)
           </button>
-          <button mat-raised-button color="warn" (click)="toNextWord()">Следующее слово (Ctrl)</button>
-          <button mat-raised-button color="warn" (click)="previousWord()" [disabled]="data.setting.random">Предидущее
+          <button appSound="btn" mat-raised-button color="warn" (click)="toNextWord()">Следующее слово (Ctrl)</button>
+          <button appSound="btn" mat-raised-button color="warn" (click)="previousWord()"
+                  [disabled]="data.setting.random">Предидущее
             слово
           </button>
-          <button mat-raised-button color="warn" (click)="showTranslation()" [disabled]="trueTranslate === '0'">Показать
+          <button appSound="btn" mat-raised-button color="warn" (click)="showTranslation()"
+                  [disabled]="trueTranslate === '0'">Показать
             перевод
           </button>
         </div>
@@ -82,7 +84,7 @@ Relax = отдыхать
         <div *ngIf="textForDictionary">
           <p>Отлично! Теперь осталось только добавить их в словарь, для этого нажмите кнопку "Добавить". Дальнейшие
             действия со словарем можно производить на вкладке "Словарь".</p>
-          <button mat-raised-button color="warn" (click)="addTestWords()">Добавить</button>
+          <button appSound="btn" mat-raised-button color="warn" (click)="addTestWords()">Добавить</button>
         </div>
       </div>
     </ng-template>
@@ -93,18 +95,18 @@ Relax = отдыхать
   <div class="right_div">
     <mat-radio-group [value]="data.setting.language" color="accent" class="sel_lang" (change)="changeLanguage($event)">
       <strong>Перевод:</strong>
-      <mat-radio-button value="ru">Русский - Английский</mat-radio-button>
-      <mat-radio-button value="en">Английский - Русский</mat-radio-button>
+      <mat-radio-button appSound="control" value="ru">Русский - Английский</mat-radio-button>
+      <mat-radio-button appSound="control" value="en">Английский - Русский</mat-radio-button>
     </mat-radio-group>
 
     <mat-divider></mat-divider>
 
     <section class="sel_lang">
       <strong>Порядок слов:</strong>
-      <mat-checkbox color="accent" [checked]="data.setting.random" (change)="randomWords($event)">
+      <mat-checkbox appSound="control" color="accent" [checked]="data.setting.random" (change)="randomWords($event)">
         Случайный порядок
       </mat-checkbox>
-      <mat-checkbox color="accent" [checked]="data.setting.repeat" (change)="repeatWords($event)">
+      <mat-checkbox appSound="control" color="accent" [checked]="data.setting.repeat" (change)="repeatWords($event)">
         Повтор слов
       </mat-checkbox>
     </section>
@@ -114,14 +116,14 @@ Relax = отдыхать
     <mat-radio-group [value]="data.setting.learnWords" color="accent" class="sel_lang"
                      (change)="changeLearnWords($event)">
       <strong>Использовать:</strong>
-      <mat-radio-button value="all">Весь словарь</mat-radio-button>
-      <mat-radio-button value="words">Выделенные слова</mat-radio-button>
-      <mat-radio-button value="groups">Группу слов</mat-radio-button>
+      <mat-radio-button appSound="control" value="all">Весь словарь</mat-radio-button>
+      <mat-radio-button appSound="control" value="words">Выделенные слова</mat-radio-button>
+      <mat-radio-button appSound="control" value="groups">Группу слов</mat-radio-button>
     </mat-radio-group>
 
   </div>
 
-  <button class="sound_btn" mat-fab [color]="colorSoundBtn" (click)="toggleSound()">
+  <button appSound="btn" class="sound_btn" mat-fab [color]="colorSoundBtn" (click)="toggleSound()">
     <mat-icon>{{iconSound}}</mat-icon>
   </button>
 

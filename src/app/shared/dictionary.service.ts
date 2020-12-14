@@ -180,7 +180,9 @@ export class DictionaryService {
         this.index++;
         return this.dictionary.get(this.keys[this.index - 1]);
       } else { // иначе возвращаем пустышку
-        if (this.setting.repeat) this.index = 0; // если включен повтор - сбрасываем индекс текущего слова
+        if (this.setting.repeat) {
+          this.index = 0;
+        } // если включен повтор - сбрасываем индекс текущего слова
         return {word: '', translation: '', mark: false, number: 0, date: '', select: false};
       }
     }

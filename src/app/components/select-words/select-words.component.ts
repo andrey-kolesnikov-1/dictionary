@@ -1,9 +1,9 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
-import { DictionaryService } from 'src/app/shared/dictionary.service';
-import { Word } from 'src/app/shared/interfaces';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatSelect, MatSelectChange} from '@angular/material/select';
+import {DictionaryService} from 'src/app/shared/dictionary.service';
+import {Word} from 'src/app/shared/interfaces';
 import {Subscription} from 'rxjs';
-import {AudioService} from '../../shared/audio.service';
+
 
 @Component({
   selector: 'app-select-words',
@@ -20,8 +20,10 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   sub: Subscription;
   @ViewChild('selElemEnd', {static: true}) selElemEnd: MatSelect;
   @ViewChild('selElemRandom', {static: true}) selElemRandom: MatSelect;
+  reverse: boolean = false;
 
-  constructor(public data: DictionaryService, private audio: AudioService) { }
+  constructor(public data: DictionaryService) {
+  }
 
   ngOnInit(): void {
     this.copyDictionary(this.data.dictionary.values());
@@ -52,27 +54,31 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
     for (let item of data) {
       this.dictionaryArray.push(item);
     }
+    if (this.reverse) {
+      this.dictionaryArray.reverse();
+    }
   }
 
   checkFind() {
     if (this.findWord.trim()) {
-      let text = this.findWord.trim()
-      let arr = []
+      let text = this.findWord.trim();
+      let arr = [];
       for (let value of this.data.dictionary.values()) {
         if (value.word.includes(text) || value.translation.includes(text)) {
-          arr.push(value)
+          arr.push(value);
         }
       }
-      this.copyDictionary(arr)
+      this.copyDictionary(arr);
     } else {
-      this.copyDictionary(this.data.dictionary.values())
+      this.copyDictionary(this.data.dictionary.values());
     }
   }
 
   setRandomWords(event: MatSelectChange) {
-    this.audio.play('click 2');
     this.checkSelectedWords('reset');
-    if (event.value === 'off') return;
+    if (event.value === 'off') {
+      return;
+    }
     this.selElemEnd.value = 'off';
 
     let counter = +event.value > this.dictionaryArray.length ? this.dictionaryArray.length : +event.value;
@@ -87,16 +93,17 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
     }
     for (const iterator of this.selectedWordsArray) {
       this.dictionaryArray.find(value => {
-        return value.number == iterator
+        return value.number == iterator;
       }).select = true;
     }
     this.numberSelectedWords = this.selectedWordsArray.length;
   }
 
   setWordsFromEnd(event: MatSelectChange) {
-    this.audio.play('click 2');
     this.checkSelectedWords('reset');
-    if (event.value === 'off') return;
+    if (event.value === 'off') {
+      return;
+    }
     this.selElemRandom.value = 'off';
 
     const length = this.dictionaryArray.length - +event.value + 1;
@@ -111,7 +118,9 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   checkSelectedWords(comm: string = '') {
     this.selectedWordsArray = [];
     for (let item of this.dictionaryArray) {
-      if (comm === 'reset') item.select = false;
+      if (comm === 'reset') {
+        item.select = false;
+      }
       if (item.select) {
         this.selectedWordsArray.push(item.number);
       }
@@ -120,7 +129,6 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   }
 
   resetAll() {
-    this.audio.play('button 1');
     this.checkSelectedWords('reset');
     this.selElemEnd.value = 'off';
     this.selElemRandom.value = 'off';
@@ -128,14 +136,19 @@ export class SelectWordsComponent implements OnInit, OnDestroy {
   }
 
   toLearn() { // передаёт массив выбранных слов
-    this.audio.play('button 1');
     const arr = [];
     for (let item of this.selectedWordsArray) {
       for (let value of this.dictionaryArray) {
-        if (value.number === item) arr.push(value.word)
+        if (value.number === item) {
+          arr.push(value.word);
+        }
       }
     }
     this.data.setLearnWords(arr, 'words');
   }
 
+  reverseArray(toggle: boolean) {
+    this.reverse = toggle;
+    this.dictionaryArray.reverse();
+  }
 }

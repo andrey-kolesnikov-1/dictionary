@@ -3,7 +3,6 @@ import {GroupsService} from '../../shared/groups.service';
 import {Group, Word, WordsForGroup} from '../../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {DictionaryService} from '../../shared/dictionary.service';
-import {AudioService} from '../../shared/audio.service';
 
 @Component({
   selector: 'app-groups',
@@ -25,13 +24,11 @@ export class GroupsComponent implements OnInit, OnDestroy {
   nameNewGroup: string = '';
   tempSelectedWords: string[] = [];
   nameSelectedGroup: string = '';
-
+  reverse: boolean = false;
   @ViewChild('inputElement') inputElement: ElementRef;
 
-
-  constructor(private dataGroup: GroupsService, private data: DictionaryService, private audio: AudioService) {
+  constructor(private dataGroup: GroupsService, public data: DictionaryService) {
   }
-
 
   ngOnInit(): void {
     // подписываемся на стрим получения копии групп
@@ -41,6 +38,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
       for (let item of groups.values()) {
         this.groupsArray.push(item[0]);
       }
+
       if (this.groupsArray.length === 0) {
         this.toggleInfoWords = this.infoSelectedGroup = false;
       }
@@ -51,20 +49,19 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.copyDictionary = this.data.getCopyDictionary();
   }
 
-
   checkFind() {
-      if (this.findWord.trim()) {
-        let text = this.findWord.trim()
-        let arr = []
-        for (let value of this.wordsArray) {
-          if (value.text.includes(text)) {
-            arr.push(value)
-          }
+    if (this.findWord.trim()) {
+      let text = this.findWord.trim();
+      let arr = [];
+      for (let value of this.wordsArray) {
+        if (value.text.includes(text)) {
+          arr.push(value);
         }
-        this.showWords = arr;
-      } else {
-        this.showWords = this.wordsArray.map(value => value); // копируем главный массив в массив для отображения
       }
+      this.showWords = arr;
+    } else {
+      this.showWords = this.wordsArray.map(value => value); // копируем главный массив в массив для отображения
+    }
   }
 
   selectGroup(group: string) { // выделяем группу по клику на ней или кнопке "Редактировать"
@@ -95,23 +92,27 @@ export class GroupsComponent implements OnInit, OnDestroy {
       });
     }
     this.showWords = this.wordsArray.map(value => value); // копируем главный массив в массив для отображения
+    if (this.reverse) {
+      this.showWords.reverse();
+    }
   }
 
   addNewGroup() { //кнопка "Добавить группу"
-    this.audio.play('button 1');
     this.nameNewGroup = '';
     this.selectGroup('');
     this.infoSelectedGroup = false;
     this.formNewGroup = this.toggleInfoWords = true; // открываем форму новой группы и доступные слова
     this.showGroupWords(); // выводим слова
-
-    setTimeout(() => {this.inputElement.nativeElement.focus();}, 100)
+    setTimeout(() => {
+      this.inputElement.nativeElement.focus();
+    }, 100);
   }
 
   saveNewGroup() { // сохранение новой группы
-    this.audio.play('button 1');
     let name = this.nameNewGroup.trim();
-    if (!name) return;
+    if (!name) {
+      return;
+    }
     const group = { // создаем объект описания группы
       name: name,
       numberWords: this.tempSelectedWords.length,
@@ -130,14 +131,15 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   getDate(): string { // получение и форматирование даты
     const date = new Date();
+
     function format(str: string): string {
       return str.length === 1 ? '0' + str : str;
     }
+
     return `${format(date.getDate() + '')}.${format(date.getMonth() + 1 + '')}.${format(date.getFullYear() + '')}`;
   }
 
   cancelCreateNewGroup() { // закрываем форму новой группы и доступные слова
-    this.audio.play('button 1');
     this.cancelNewGroup();
   }
 
@@ -147,18 +149,21 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   selectWordForGroup() { // обработка клика по слову словаря
-      this.tempSelectedWords = this.wordsArray.filter(value => value.selected).map(value => value.text);
-  }
-
-  ngOnDestroy(): void { // отписываемся при удалении компонента
-    this.stream.unsubscribe();
+    this.tempSelectedWords = this.wordsArray.filter(value => value.selected).map(value => value.text);
   }
 
   saveChangeGroup() { // сохранение изменений в выбранной группе
-    this.audio.play('button 1');
     const arr: any[] = this.tempSelectedWords.map(value => value.split('=')[0].trim());
     this.dataGroup.saveEditedGroup(this.nameSelectedGroup, arr);
     this.infoSelectedGroup = this.toggleInfoWords = false;
   }
 
+  reverseArray(toggle: boolean) {
+    this.reverse = toggle;
+    this.showWords.reverse();
+  }
+
+  ngOnDestroy(): void { // отписываемся при удалении компонента
+    this.stream.unsubscribe();
+  }
 }

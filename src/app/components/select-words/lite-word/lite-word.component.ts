@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Word } from 'src/app/shared/interfaces';
-import {AudioService} from '../../../shared/audio.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Word} from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-lite-word',
@@ -12,7 +11,8 @@ export class LiteWordComponent implements OnInit {
   @Input() word: Word;
   text: string = '';
 
-  constructor(private audio: AudioService) { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.show();
@@ -29,8 +29,6 @@ export class LiteWordComponent implements OnInit {
   }
 
   selectWord() {
-    this.audio.play('click 2');
     this.word.select = !this.word.select;
   }
-
 }

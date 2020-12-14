@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="left_div" (click)="isScrollTextInfo = !isScrollTextInfo" >
+  <div class="left_div" (click)="isScrollTextInfo = !isScrollTextInfo">
     <div [ngStyle]="{overflow: isScrollTextInfo ? 'auto' : 'hidden'}">
       <p>
         АНГЛИЙСКИЙ ЯЗЫК принадлежит к германской группе языков, в которую также входят немецкий, голландский, шведский и
@@ -73,14 +73,17 @@
              (input)="checkFind()"
       >
     </mat-form-field>
+
+    <app-toggle-turn appSound="control" (onReverse)="reverseArray($event)"></app-toggle-turn>
+
     <div class="container_words_div">
       <h1 *ngIf="data.dictionary.size === 0" style="color: white; text-align: center">Список слов пуст.</h1>
       <app-word-component *ngFor="let item of dictionaryArray"
                           [word]="item"
                           [mark]="item.mark"
                           (onSelected)="selectedWord($event)"
+                          appSound="control"
       ></app-word-component>
-
     </div>
   </div>
 
@@ -93,29 +96,37 @@
       ></textarea>
     </mat-form-field>
     <div class="btn_new_words_div">
-      <button mat-raised-button color="warn" [disabled]="isEmptyField" (click)="addNewWords()">Добавить</button>
-      <button mat-raised-button color="warn" [disabled]="isEmptyField" (click)="clearField()">Очистить поле</button>
+      <button appSound="btn" mat-raised-button color="warn" [disabled]="isEmptyField" (click)="addNewWords()">Добавить
+      </button>
+      <button appSound="btn" mat-raised-button color="warn" [disabled]="isEmptyField" (click)="clearField()">Очистить
+        поле
+      </button>
     </div>
 
     <mat-divider></mat-divider>
     <p>Действия над выделенным словом</p>
     <div class="btn_new_words_div">
-      <button mat-raised-button color="warn" [disabled]="enableBtnSelWord" (click)="controlSelectedWord(1)">
+      <button appSound="btn" mat-raised-button color="warn" [disabled]="enableBtnSelWord"
+              (click)="controlSelectedWord(1)">
         Редактировать
       </button>
-      <button mat-raised-button color="warn" [disabled]="enableBtnSelWord" (click)="controlSelectedWord(2)">Сохранить
+      <button appSound="btn" mat-raised-button color="warn" [disabled]="enableBtnSelWord"
+              (click)="controlSelectedWord(2)">Сохранить
       </button>
     </div>
     <div class="btn_new_words_div">
-      <button mat-raised-button color="warn" [disabled]="enableBtnSelWord" (click)="controlSelectedWord(3)">Отмена
+      <button appSound="btn" mat-raised-button color="warn" [disabled]="enableBtnSelWord"
+              (click)="controlSelectedWord(3)">Отмена
       </button>
-      <button mat-raised-button color="warn" [disabled]="enableBtnSelWord" (click)="controlSelectedWord(4)">Удалить
+      <button appSound="btn" mat-raised-button color="warn" [disabled]="enableBtnSelWord"
+              (click)="controlSelectedWord(4)">Удалить
       </button>
     </div>
     <mat-divider></mat-divider>
     <p>Удаление словаря</p>
     <div class="btn_new_words_div">
-      <button mat-raised-button color="warn" (click)="deleteAllDictionary()" [disabled]="data.dictionary.size === 0">
+      <button appSound="btn" mat-raised-button color="warn" (click)="deleteAllDictionary()"
+              [disabled]="data.dictionary.size === 0">
         Удалить словарь
       </button>
     </div>

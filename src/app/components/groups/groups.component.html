@@ -7,11 +7,14 @@
         <input matInput type="text" autocomplete="off" [(ngModel)]="findWord" (input)="checkFind()">
       </mat-form-field>
 
+      <app-toggle-turn appSound="control" (onReverse)="reverseArray($event)"></app-toggle-turn>
+
       <div class="words_div">
         <app-super-lite-word
           *ngFor="let word of showWords"
           [word]="word"
           (onClick)="selectWordForGroup()"
+          appSound="control"
         ></app-super-lite-word>
 
       </div>
@@ -68,7 +71,10 @@
   <div class="right_div">
 
     <p>Действия над группами слов</p>
-    <button mat-raised-button color="warn" (click)="addNewGroup()">Добавить новую группу</button>
+    <button appSound="btn" mat-raised-button color="warn" (click)="addNewGroup()"
+            [disabled]="data.dictionary.size === 0">Добавить
+      новую группу
+    </button>
 
     <div *ngIf="formNewGroup">
       <mat-form-field class="form-field" color="accent">
@@ -83,10 +89,11 @@
       <div class="content_group">
         <p *ngFor="let item of tempSelectedWords" [innerText]="item"></p>
       </div>
-      <button mat-raised-button color="warn" (click)="saveNewGroup()" [disabled]="nameNewGroup.trim().length === 0">
+      <button appSound="btn" mat-raised-button color="warn" (click)="saveNewGroup()"
+              [disabled]="nameNewGroup.trim().length === 0">
         Сохранить
       </button>
-      <button mat-raised-button color="warn" (click)="cancelCreateNewGroup()">Отмена</button>
+      <button appSound="btn" mat-raised-button color="warn" (click)="cancelCreateNewGroup()">Отмена</button>
     </div>
 
     <div *ngIf="infoSelectedGroup">
@@ -95,7 +102,7 @@
       <div class="content_group">
         <p *ngFor="let item of tempSelectedWords" [innerText]="item"></p>
       </div>
-      <button mat-raised-button color="warn" (click)="saveChangeGroup()">Сохранить изменения</button>
+      <button appSound="btn" mat-raised-button color="warn" (click)="saveChangeGroup()">Сохранить изменения</button>
     </div>
 
   </div>

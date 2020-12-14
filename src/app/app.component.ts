@@ -1,22 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {DictionaryService} from './shared/dictionary.service';
-import {AudioService} from './shared/audio.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'dictionary';
 
-  constructor(public data: DictionaryService, private audio: AudioService) {
-  }
-
-  ngOnInit(): void {
-  }
-
-  clickLink() {
-    this.audio.play('click 2');
+  constructor(public data: DictionaryService) {
   }
 }
